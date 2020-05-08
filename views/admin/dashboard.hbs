@@ -2,14 +2,22 @@
 <br class="featurette-divider">
 <br class="featurette-divider">
 
-<button type="button" class="btn btn-outline-primary">Primary</button>
-<button type="button" class="btn btn-outline-secondary">Secondary</button>
-<button type="button" class="btn btn-outline-success">Success</button>
-<button type="button" class="btn btn-outline-danger">Danger</button>
-<button type="button" class="btn btn-outline-warning">Warning</button>
-<button type="button" class="btn btn-outline-info">Info</button>
-<button type="button" class="btn btn-outline-light">Light</button>
-<button type="button" class="btn btn-outline-dark">Dark</button>
+<a type="button" href="#" class="btn btn-outline-primary">農產</a>
+<a type="button" href="#" class="btn btn-outline-secondary">新聞</a>
+<a type="button" href="#" class="btn btn-outline-success">會員資料</a>
+{{#if user.role}}
+<a type="button" href="#" class="btn btn-outline-warning">成員</a>
+{{/if}}
+
+<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+  aria-haspopup="true" aria-expanded="false">
+  新增
+</button>
+<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+  <a class="dropdown-item" href="#">農產</a>
+  <a class="dropdown-item" href="#">新聞</a>
+</div>
+
 <br class="featurette-divider">
 <br class="featurette-divider">
 
