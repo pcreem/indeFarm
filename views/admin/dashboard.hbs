@@ -1,4 +1,4 @@
-<a type="button" href="/admin/agrifoods" class="btn btn-outline-primary">農產</a>
+<a type="button" href="/admin/dashboard" class="btn btn-outline-primary">農產</a>
 <a type="button" href="/admin/news" class="btn btn-outline-secondary">新聞</a>
 <a type="button" href="/admin/profile" class="btn btn-outline-success">會員資料</a>
 {{#if user.role}}
@@ -37,6 +37,8 @@
           {{this.name}}
         </a>
       </td>
+
+      <td>{{this.updatedAt}}</td>
       <td>
         <form action="/admin/agrifoods/{{this.id}}?_method=DELETE" method="POST" style="display: inline;">
           <button type="submit" class="btn btn-link">
@@ -53,7 +55,6 @@
           </button>
         </form>
       </td>
-      <td>{{this.updatedAt}}</td>
     </tr>
     {{/each}}
   </tbody>

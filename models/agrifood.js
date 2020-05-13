@@ -2,6 +2,7 @@
 module.exports = (sequelize, DataTypes) => {
   const Agrifood = sequelize.define('Agrifood', {
     name: DataTypes.STRING,
+    image: DataTypes.STRING,
     price: DataTypes.INTEGER,
     freight: DataTypes.INTEGER,
     norm: DataTypes.STRING,

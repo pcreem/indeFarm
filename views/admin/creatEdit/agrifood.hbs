@@ -1,0 +1,70 @@
+<a type="button" href="/admin/dashboard" class="btn btn-outline-primary">農產</a>
+<a type="button" href="/admin/news" class="btn btn-outline-secondary">新聞</a>
+<a type="button" href="/admin/profile" class="btn btn-outline-success">會員資料</a>
+{{#if user.role}}
+<a type="button" href="/admin/members" class="btn btn-outline-info">成員</a>
+<a type="button" href="/admin/categories" class="btn btn-outline-info">Category</a>
+{{/if}}
+
+<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+  aria-haspopup="true" aria-expanded="false">
+  新增
+</button>
+<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+  <a class="dropdown-item" href="/admin/agrifoods/create">農產</a>
+  <a class="dropdown-item" href="/admin/news/create">新聞</a>
+  {{#if user.role}} <a class="dropdown-item" href="/admin/categories/create">Category</a>{{/if}}
+</div>
+
+<br class="featurette-divider">
+<br class="featurette-divider">
+
+<form action="/admin/agrifoods" method="POST">
+  <div class="form-group">
+    <label for="name">產品名稱</label>
+    <input type="text" class="form-control" name="name" id="name">
+  </div>
+
+  <div class="custom-file">
+
+    <input type="file" class="custom-file-input" id="customFile" name="image">
+    <label class="custom-file-label" for="customFile">產品圖片</label>
+  </div><br><br>
+
+  <div class="form-group">
+    <label for="CategoryId">農產類別</label>
+    <select class="form-control" id="CategoryId" name="CategoryId">
+      {{#if product.CategoryId}}
+      <option value="{{product.CategoryId}}" selected disabled>{{product.Category.name}}</option>
+      {{else}}
+      <option hidden disabled selected value> -- select an option -- </option>
+      {{#each categories}}
+      <option value="{{this.id}}">{{this.name}}</option>
+      {{/each}}
+      <option value="1">One</option>
+      {{/if}}
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="price">售價</label>
+    <input type="text" class="form-control" name="price" id="price">
+  </div>
+
+  <div class="form-group">
+    <label for="freight">運費</label>
+    <input type="text" class="form-control" name="freight" id="freight">
+  </div>
+
+  <div class="form-group">
+    <label for="norm">規格</label>
+    <input type="text" class="form-control" name="norm" id="norm" placeholder="例如: 重量(公克或公斤) 包裝大小(公分)...等">
+  </div>
+
+  <div class="form-group">
+    <label for="description">產品描述</label>
+    <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+  </div>
+
+  <button type="submit" class="btn btn-primary">送出</button>
+</form>
