@@ -34,5 +34,6 @@ module.exports = (app, passport) => {
   app.get('/admin/agrifoods/:id', authenticatedAdmin, adminController.getAgrifood)
   app.get('/admin/agrifoods/:id/edit', authenticatedAdmin, adminController.editAgrifood)
   app.put('/admin/agrifoods/:id', authenticatedAdmin, adminController.putAgrifood)
+  app.delete('/admin/agrifoods/:id', authenticatedAdmin, adminController.deleteAgrifood)
 
 }

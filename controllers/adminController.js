@@ -65,11 +65,21 @@ const adminController = {
           UserId: req.user.id
         })
           .then((agrifood) => {
-            req.flash('success_messages', 'agrifood was successfully created')
+            req.flash('success_messages', 'agrifood was successfully edited')
             res.redirect('/admin/dashboard')
           })
       })
   },
+
+  deleteAgrifood: (req, res) => {
+    return Agrifood.findByPk(req.params.id)
+      .then((agrifood) => {
+        agrifood.destroy()
+          .then((agrifood) => {
+            res.redirect('/admin/dashboard')
+          })
+      })
+  }
 }
 
 module.exports = adminController
