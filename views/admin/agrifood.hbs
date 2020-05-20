@@ -1,0 +1,48 @@
+<a type="button" href="/admin/dashboard" class="btn btn-outline-primary">農產</a>
+<a type="button" href="/admin/news" class="btn btn-outline-secondary">新聞</a>
+<a type="button" href="/admin/profile" class="btn btn-outline-success">會員資料</a>
+{{#if user.role}}
+<a type="button" href="/admin/members" class="btn btn-outline-info">成員</a>
+<a type="button" href="/admin/categories" class="btn btn-outline-info">Category</a>
+{{/if}}
+
+<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+  aria-haspopup="true" aria-expanded="false">
+  新增
+</button>
+<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+  <a class="dropdown-item" href="/admin/agrifoods/create">農產</a>
+  <a class="dropdown-item" href="/admin/news/create">新聞</a>
+  {{#if user.role}} <a class="dropdown-item" href="/admin/categories/create">Category</a>{{/if}}
+</div>
+
+<br class="featurette-divider">
+<br class="featurette-divider">
+
+<div class="card mb-3" style="max-width: 540px;">
+  <div class="row no-gutters">
+    <div class="col-md-4">
+      <svg class="bd-placeholder-img" width="100%" height="300" xmlns="http://www.w3.org/2000/svg"
+        preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Image">
+        <title>Placeholder</title>
+        <rect width="100%" height="100%" fill="#868e96"></rect><text x="50%" y="50%" fill="#dee2e6"
+          dy=".3em">Image</text>
+      </svg>
+      <!--<img src="..." class="card-img-top" alt="...">-->
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">產品名: {{agrifood.name}}</h5>
+        <p class="card-text">商品詳情: {{agrifood.description}}</p>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">規格: {{agrifood.norm}}</li>
+          <li class="list-group-item">運費: {{agrifood.freight}}</li>
+          <li class="list-group-item">售價: {{agrifood.price}}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<a class="btn btn-outline-primary" class="card-link" href="/admin/agrifood/{{this.id}}/edit" role="button">編輯</a>
+<a class="btn btn-outline-primary" href="javascript:history.back()" role="button">回上一頁</a>

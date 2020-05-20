@@ -31,6 +31,6 @@ module.exports = (app, passport) => {
   app.get('/admin/dashboard', authenticatedAdmin, adminController.getDashboard)
   app.get('/admin/agrifoods/create', authenticatedAdmin, adminController.getAgrifoodCEpage)
   app.post('/admin/agrifoods', authenticatedAdmin, adminController.postAgrifood)
-
+  app.get('/admin/agrifoods/:id', authenticatedAdmin, adminController.getAgrifood)
 
 }

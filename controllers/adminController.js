@@ -32,6 +32,14 @@ const adminController = {
         res.redirect('/admin/dashboard')
       })
   },
+
+  getAgrifood: (req, res) => {
+    return Agrifood.findByPk(req.params.id, { raw: true }).then(agrifood => {
+      return res.render('admin/agrifood', {
+        agrifood: agrifood
+      })
+    })
+  }
 }
 
 module.exports = adminController
