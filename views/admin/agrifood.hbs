@@ -19,9 +19,9 @@
 <br class="featurette-divider">
 <br class="featurette-divider">
 
-<div class="card mb-3" style="max-width: 540px;">
+<div class="card mb-3">
   <div class="row no-gutters">
-    <div class="col-md-4">
+    <div class="col-md-5">
       <svg class="bd-placeholder-img" width="100%" height="300" xmlns="http://www.w3.org/2000/svg"
         preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Image">
         <title>Placeholder</title>
@@ -30,19 +30,50 @@
       </svg>
       <!--<img src="..." class="card-img-top" alt="...">-->
     </div>
-    <div class="col-md-8">
+    <div class="col-md-7">
       <div class="card-body">
-        <h5 class="card-title">產品名: {{agrifood.name}}</h5>
-        <p class="card-text">商品詳情: {{agrifood.description}}</p>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">規格: {{agrifood.norm}}</li>
-          <li class="list-group-item">運費: {{agrifood.freight}}</li>
-          <li class="list-group-item">售價: {{agrifood.price}}</li>
-        </ul>
+
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">產品名稱</span>
+          </div>
+          <p class="form-control">{{agrifood.name}}</p>
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">產品詳情</span>
+          </div>
+          <p class="form-control">{{agrifood.description}}</p>
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">規格</span>
+          </div>
+          <p class="form-control">{{agrifood.norm}}</p>
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">運費</span>
+          </div>
+          <p class="form-control">{{agrifood.freight}}</p>
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">售價</span>
+          </div>
+          <p class="form-control">{{agrifood.price}}</p>
+        </div>
+
+
+
       </div>
     </div>
   </div>
 </div>
 
-<a class="btn btn-outline-primary" class="card-link" href="/admin/agrifood/{{this.id}}/edit" role="button">編輯</a>
+<a class="btn btn-outline-primary" class="card-link" href="/admin/agrifoods/{{agrifood.id}}/edit" role="button">編輯</a>
 <a class="btn btn-outline-primary" href="javascript:history.back()" role="button">回上一頁</a>
