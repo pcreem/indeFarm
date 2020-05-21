@@ -8,7 +8,11 @@ const passport = require('./config/passport')
 const methodOverride = require('method-override')
 
 const app = express()
-const port = 3000
+const port = process.env.PORT || 3000
+
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
 
 app.set('view engine', 'hbs')
 app.engine('.hbs', handlebars({
@@ -17,6 +21,7 @@ app.engine('.hbs', handlebars({
 }));
 
 app.use(express.static(__dirname + '/public'));
+app.use('/upload', express.static(__dirname + '/upload'))
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(session({ secret: 'secret', resave: false, saveUninitialized: false }))
 app.use(passport.initialize())

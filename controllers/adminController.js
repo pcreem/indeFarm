@@ -1,5 +1,9 @@
 const db = require('../models')
 const Agrifood = db.Agrifood
+require('dotenv').config()
+const imgurnodeapi = require('imgur-node-api')
+const IMGUR_CLIENT_ID = process.env.IMGUR_CLIENT_ID
+const fs = require('fs')
 
 const adminController = {
   getDashboard: (req, res) => {
@@ -17,20 +21,46 @@ const adminController = {
       req.flash('error_messages', "name didn't exist")
       return res.redirect('back')
     }
-    return Agrifood.create({
-      name: req.body.name,
-      price: req.body.price,
-      freight: req.body.freight,
-      norm: req.body.norm,
-      description: req.body.description,
-      //image: file ? img.data.link : null,
-      CategoryId: req.body.CategoryId,
-      UserId: req.user.id
-    })
-      .then((agrifood) => {
-        req.flash('success_messages', 'agrifood was successfully created')
-        res.redirect('/admin/dashboard')
+
+    const { file } = req // equal to const file = req.file
+    if (file) {
+      fs.readFile(file.path, (err, data) => {
+        if (err) console.log('Error: ', err)
+        fs.writeFile(`upload/${file.originalname}`, data, () => {
+          return Agrifood.create({
+
+            name: req.body.name,
+            price: req.body.price,
+            freight: req.body.freight,
+            norm: req.body.norm,
+            description: req.body.description,
+            image: file ? `/upload/${file.originalname}` : null,
+            CategoryId: req.body.CategoryId,
+            UserId: req.user.id
+
+          }).then((agrifood) => {
+            req.flash('success_messages', 'agrifood was successfully created')
+            return res.redirect('/admin/dashboard')
+          })
+        })
       })
+    } else {
+      return Agrifood.create({
+
+        name: req.body.name,
+        price: req.body.price,
+        freight: req.body.freight,
+        norm: req.body.norm,
+        description: req.body.description,
+        image: null,
+        CategoryId: req.body.CategoryId,
+        UserId: req.user.id
+
+      }).then((agrifood) => {
+        req.flash('success_messages', 'agrifood was successfully created')
+        return res.redirect('/admin/dashboard')
+      })
+    }
   },
 
   getAgrifood: (req, res) => {
@@ -52,23 +82,51 @@ const adminController = {
       req.flash('error_messages', "name didn't exist")
       return res.redirect('back')
     }
-    return Agrifood.findByPk(req.params.id)
-      .then((agrifood) => {
-        agrifood.update({
-          name: req.body.name,
-          price: req.body.price,
-          freight: req.body.freight,
-          norm: req.body.norm,
-          description: req.body.description,
-          //image: file ? img.data.link : null,
-          CategoryId: req.body.CategoryId,
-          UserId: req.user.id
+
+    const { file } = req
+    if (file) {
+      fs.readFile(file.path, (err, data) => {
+        if (err) console.log('Error: ', err)
+        fs.writeFile(`upload/${file.originalname}`, data, () => {
+          return Agrifood.findByPk(req.params.id)
+            .then((agrifood) => {
+              agrifood.update({
+
+                name: req.body.name,
+                price: req.body.price,
+                freight: req.body.freight,
+                norm: req.body.norm,
+                description: req.body.description,
+                image: file ? `/upload/${file.originalname}` : agrifood.image,
+                CategoryId: req.body.CategoryId,
+                UserId: req.user.id
+              }).then((agrifood) => {
+                req.flash('success_messages', 'agrifood was successfully to update')
+                res.redirect('/admin/dashboard')
+              })
+            })
         })
-          .then((agrifood) => {
-            req.flash('success_messages', 'agrifood was successfully edited')
-            res.redirect('/admin/dashboard')
-          })
       })
+    } else {
+      return Agrifood.findByPk(req.params.id)
+        .then((agrifood) => {
+          agrifood.update({
+
+            name: req.body.name,
+            price: req.body.price,
+            freight: req.body.freight,
+            norm: req.body.norm,
+            description: req.body.description,
+            image: agrifood.image,
+            CategoryId: req.body.CategoryId,
+            UserId: req.user.id
+
+          }).then((agrifood) => {
+            req.flash('success_messages', 'agrifood was successfully to update')
+            res.redirect('/admin/agrifoods')
+          })
+        })
+    }
   },
 
   deleteAgrifood: (req, res) => {
