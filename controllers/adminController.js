@@ -1,7 +1,7 @@
 const db = require('../models')
 const Agrifood = db.Agrifood
 require('dotenv').config()
-const imgurnodeapi = require('imgur-node-api')
+const imgur = require('imgur-node-api')
 const IMGUR_CLIENT_ID = process.env.IMGUR_CLIENT_ID
 const fs = require('fs')
 
@@ -22,31 +22,27 @@ const adminController = {
       return res.redirect('back')
     }
 
-    const { file } = req // equal to const file = req.file
+    const { file } = req
     if (file) {
-      fs.readFile(file.path, (err, data) => {
-        if (err) console.log('Error: ', err)
-        fs.writeFile(`upload/${file.originalname}`, data, () => {
-          return Agrifood.create({
-
-            name: req.body.name,
-            price: req.body.price,
-            freight: req.body.freight,
-            norm: req.body.norm,
-            description: req.body.description,
-            image: file ? `/upload/${file.originalname}` : null,
-            CategoryId: req.body.CategoryId,
-            UserId: req.user.id
-
-          }).then((agrifood) => {
-            req.flash('success_messages', 'agrifood was successfully created')
-            return res.redirect('/admin/dashboard')
-          })
+      imgur.setClientID(IMGUR_CLIENT_ID);
+      imgur.upload(file.path, (err, img) => {
+        return Agrifood.create({
+          name: req.body.name,
+          price: req.body.price,
+          freight: req.body.freight,
+          norm: req.body.norm,
+          description: req.body.description,
+          image: file ? img.data.link : null,
+          CategoryId: req.body.CategoryId,
+          UserId: req.user.id
+        }).then((agrifood) => {
+          req.flash('success_messages', 'agrifood was successfully created')
+          return res.redirect('/admin/dashboard')
         })
       })
-    } else {
+    }
+    else {
       return Agrifood.create({
-
         name: req.body.name,
         price: req.body.price,
         freight: req.body.freight,
@@ -55,7 +51,6 @@ const adminController = {
         image: null,
         CategoryId: req.body.CategoryId,
         UserId: req.user.id
-
       }).then((agrifood) => {
         req.flash('success_messages', 'agrifood was successfully created')
         return res.redirect('/admin/dashboard')
@@ -85,29 +80,29 @@ const adminController = {
 
     const { file } = req
     if (file) {
-      fs.readFile(file.path, (err, data) => {
-        if (err) console.log('Error: ', err)
-        fs.writeFile(`upload/${file.originalname}`, data, () => {
-          return Agrifood.findByPk(req.params.id)
-            .then((agrifood) => {
-              agrifood.update({
+      imgur.setClientID(IMGUR_CLIENT_ID);
+      imgur.upload(file.path, (err, img) => {
+        return Agrifood.findByPk(req.params.id)
+          .then((agrifood) => {
+            agrifood.update({
 
-                name: req.body.name,
-                price: req.body.price,
-                freight: req.body.freight,
-                norm: req.body.norm,
-                description: req.body.description,
-                image: file ? `/upload/${file.originalname}` : agrifood.image,
-                CategoryId: req.body.CategoryId,
-                UserId: req.user.id
-              }).then((agrifood) => {
+              name: req.body.name,
+              price: req.body.price,
+              freight: req.body.freight,
+              norm: req.body.norm,
+              description: req.body.description,
+              image: file ? img.data.link : agrifood.image,
+              CategoryId: req.body.CategoryId,
+              UserId: req.user.id
+            })
+              .then((agrifood) => {
                 req.flash('success_messages', 'agrifood was successfully to update')
                 res.redirect('/admin/dashboard')
               })
-            })
-        })
+          })
       })
-    } else {
+    }
+    else
       return Agrifood.findByPk(req.params.id)
         .then((agrifood) => {
           agrifood.update({
@@ -120,13 +115,12 @@ const adminController = {
             image: agrifood.image,
             CategoryId: req.body.CategoryId,
             UserId: req.user.id
-
-          }).then((agrifood) => {
-            req.flash('success_messages', 'agrifood was successfully to update')
-            res.redirect('/admin/agrifoods')
           })
+            .then((agrifood) => {
+              req.flash('success_messages', 'agrifood was successfully to update')
+              res.redirect('/admin/dashboard')
+            })
         })
-    }
   },
 
   deleteAgrifood: (req, res) => {
