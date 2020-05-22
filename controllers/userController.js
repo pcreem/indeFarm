@@ -13,7 +13,6 @@ const userController = {
       req.flash('error_messages', '兩次密碼輸入不同！')
       return res.redirect('/signup')
     } else {
-      // confirm unique user
       User.findOne({ where: { email: req.body.email } }).then(user => {
         if (user) {
           req.flash('error_messages', '信箱重複！')
@@ -21,10 +20,13 @@ const userController = {
         } else {
           User.create({
             name: req.body.name,
+            phone: req.body.phone,
+            address: req.body.address,
+            atm: req.body.atm ? req.body.atm : null,
             email: req.body.email,
             password: bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10), null)
           }).then(user => {
-            req.flash('success_messages', '成功註冊帳號！')
+            req.flash('success_messages', '收到註冊資料, 請等待審核結果')
             return res.redirect('/signin')
           })
         }
