@@ -1,5 +1,6 @@
 const db = require('../models')
 const Agrifood = db.Agrifood
+const User = db.User
 require('dotenv').config()
 const imgur = require('imgur-node-api')
 const IMGUR_CLIENT_ID = process.env.IMGUR_CLIENT_ID
@@ -9,6 +10,23 @@ const adminController = {
   getDashboard: (req, res) => {
     return Agrifood.findAll({ raw: true }).then(agrifoods => {
       return res.render('admin/dashboard', { agrifoods: agrifoods })
+    })
+  },
+
+  getMembers: (req, res) => {
+    return User.findAll({ raw: true }).then(members => {
+      return res.render('admin/dashboard', { members: members })
+    })
+  },
+
+  putApproved: (req, res) => {
+    return User.findByPk(req.params.id).then(user => {
+      user.update({ approved: !user.approved })
+        .then(user => {
+          return User.findAll({ raw: true }).then(members => {
+            return res.render('admin/dashboard', { members: members })
+          })
+        })
     })
   },
 

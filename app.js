@@ -17,7 +17,8 @@ if (process.env.NODE_ENV !== 'production') {
 app.set('view engine', 'hbs')
 app.engine('.hbs', handlebars({
   extname: '.hbs',
-  defaultLayout: 'main'
+  defaultLayout: 'main',
+  helpers: require('./config/helpers')
 }));
 
 app.use(express.static(__dirname + '/public'));
