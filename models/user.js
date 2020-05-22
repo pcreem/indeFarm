@@ -10,8 +10,9 @@ module.exports = (sequelize, DataTypes) => {
     approved: DataTypes.BOOLEAN,
     role: DataTypes.BOOLEAN
   }, {});
-  User.associate = function(models) {
-    // associations can be defined here
+  User.associate = function (models) {
+    User.hasMany(models.Agrifood)
+    User.hasMany(models.News)
   };
   return User;
 };

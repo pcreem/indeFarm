@@ -10,8 +10,9 @@ module.exports = (sequelize, DataTypes) => {
     CategoryId: DataTypes.INTEGER,
     UserId: DataTypes.INTEGER
   }, {});
-  Agrifood.associate = function(models) {
-    // associations can be defined here
+  Agrifood.associate = function (models) {
+    Agrifood.belongsTo(models.User)
+    Agrifood.belongsTo(models.Category)
   };
   return Agrifood;
 };
