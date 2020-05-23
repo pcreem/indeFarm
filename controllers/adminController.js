@@ -8,25 +8,15 @@ const fs = require('fs')
 
 const adminController = {
   getDashboard: (req, res) => {
-    return Agrifood.findAll({ raw: true }).then(agrifoods => {
+    let whereQuery = {}
+    whereQuery['UserId'] = req.user.id
+    if (req.user.role) {
+      return Agrifood.findAll({ raw: true }).then(agrifoods => {
+        return res.render('admin/dashboard', { agrifoods: agrifoods })
+      })
+    }
+    return Agrifood.findAll({ where: whereQuery, raw: true }).then(agrifoods => {
       return res.render('admin/dashboard', { agrifoods: agrifoods })
-    })
-  },
-
-  getMembers: (req, res) => {
-    return User.findAll({ raw: true }).then(members => {
-      return res.render('admin/dashboard', { members: members })
-    })
-  },
-
-  putApproved: (req, res) => {
-    return User.findByPk(req.params.id).then(user => {
-      user.update({ approved: !user.approved })
-        .then(user => {
-          return User.findAll({ raw: true }).then(members => {
-            return res.render('admin/dashboard', { members: members })
-          })
-        })
     })
   },
 
@@ -78,6 +68,10 @@ const adminController = {
 
   getAgrifood: (req, res) => {
     return Agrifood.findByPk(req.params.id, { raw: true }).then(agrifood => {
+      if (agrifood.UserId !== req.user.id && !req.user.role) {
+        req.flash('error_messages', '404 Page not found')
+        return res.redirect('/index')
+      }
       return res.render('admin/agrifood', {
         agrifood: agrifood
       })
@@ -86,6 +80,10 @@ const adminController = {
 
   editAgrifood: (req, res) => {
     return Agrifood.findByPk(req.params.id, { raw: true }).then(agrifood => {
+      if (agrifood.UserId !== req.user.id && !req.user.role) {
+        req.flash('error_messages', '404 Page not found')
+        return res.redirect('/index')
+      }
       return res.render('admin/creatEdit/agrifood', { agrifood: agrifood })
     })
   },
@@ -102,6 +100,10 @@ const adminController = {
       imgur.upload(file.path, (err, img) => {
         return Agrifood.findByPk(req.params.id)
           .then((agrifood) => {
+            if (agrifood.UserId !== req.user.id && !req.user.role) {
+              req.flash('error_messages', '404 Page not found')
+              return res.redirect('/index')
+            }
             agrifood.update({
 
               name: req.body.name,
@@ -123,6 +125,10 @@ const adminController = {
     else
       return Agrifood.findByPk(req.params.id)
         .then((agrifood) => {
+          if (agrifood.UserId !== req.user.id && !req.user.role) {
+            req.flash('error_messages', '404 Page not found')
+            return res.redirect('/index')
+          }
           agrifood.update({
 
             name: req.body.name,
@@ -144,11 +150,30 @@ const adminController = {
   deleteAgrifood: (req, res) => {
     return Agrifood.findByPk(req.params.id)
       .then((agrifood) => {
+        if (agrifood.UserId !== req.user.id && !req.user.role) {
+          req.flash('error_messages', '404 Page not found')
+          return res.redirect('/index')
+        }
         agrifood.destroy()
           .then((agrifood) => {
             res.redirect('/admin/dashboard')
           })
       })
+  },
+
+  getMembers: (req, res) => {
+    return User.findAll({ raw: true }).then(members => {
+      return res.render('admin/dashboard', { members: members })
+    })
+  },
+
+  putApproved: (req, res) => {
+    return User.findByPk(req.params.id).then(user => {
+      user.update({ approved: !user.approved })
+        .then(user => {
+          return res.redirect('/admin/members')
+        })
+    })
   }
 }
 
