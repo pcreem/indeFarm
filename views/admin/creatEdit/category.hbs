@@ -1,0 +1,43 @@
+<a type="button" href="/admin/dashboard" class="btn btn-outline-primary">農產</a>
+<a type="button" href="/admin/news" class="btn btn-outline-secondary">新聞</a>
+<a type="button" href="/admin/profile" class="btn btn-outline-success">Profile</a>
+{{#if user.role}}
+<a type="button" href="/admin/members" class="btn btn-outline-info">members</a>
+<a type="button" href="/admin/categories" class="btn btn-outline-info">Category</a>
+{{/if}}
+
+<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+  aria-haspopup="true" aria-expanded="false">
+  新增
+</button>
+<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+  <a class="dropdown-item" href="/admin/agrifoods/create">農產</a>
+  <a class="dropdown-item" href="/admin/news/create">新聞</a>
+  {{#if user.role}} <a class="dropdown-item" href="/admin/categories/create">Category</a>{{/if}}
+</div><a type="button" href="/logout" class="btn btn-outline-info">LogOut</a>
+
+<br class="featurette-divider">
+<br class="featurette-divider">
+
+<!--Card view-->
+{{#if category}}
+<form action="/admin/categories/{{category.id}}?_method=PUT" method="POST">
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="basic-addon1">Category</span>
+    </div>
+    <input type="text" class="form-control" name="name" value="{{category.name}}">
+  </div>
+  <button type="submit" class="btn btn-primary">Update</button>
+</form>
+{{else}}
+<form action="/admin/categories" method="POST">
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="basic-addon1">Category</span>
+    </div>
+    <input type="text" class="form-control" name="name">
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{{/if}}

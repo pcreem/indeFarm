@@ -1,6 +1,7 @@
 const db = require('../models')
 const Agrifood = db.Agrifood
 const User = db.User
+const Category = db.Category
 require('dotenv').config()
 const imgur = require('imgur-node-api')
 const IMGUR_CLIENT_ID = process.env.IMGUR_CLIENT_ID
@@ -157,6 +158,63 @@ const adminController = {
         agrifood.destroy()
           .then((agrifood) => {
             res.redirect('/admin/dashboard')
+          })
+      })
+  },
+
+  getCategories: (req, res) => {
+    return Category.findAll({ raw: true }).then(categories => {
+      return res.render('admin/dashboard', { categories: categories })
+    })
+  },
+
+  getCategoryCEpage: (req, res) => {
+    return res.render('admin/creatEdit/category')
+  },
+
+  postCategory: (req, res) => {
+    if (!req.body.name) {
+      req.flash('error_messages', 'name didn\'t exist')
+      return res.redirect('back')
+    } else {
+      return Category.create({
+        name: req.body.name
+      })
+        .then((category) => {
+          res.redirect('/admin/categories')
+        })
+    }
+  },
+
+  getCategory: (req, res) => {
+    return Category.findByPk(req.params.id, { raw: true }).then(category => {
+      return res.render('admin/creatEdit/category', {
+        category: category
+      })
+    })
+  },
+
+  putCategory: (req, res) => {
+    if (!req.body.name) {
+      req.flash('error_messages', 'name didn\'t exist')
+      return res.redirect('back')
+    } else {
+      return Category.findByPk(req.params.id)
+        .then((category) => {
+          category.update(req.body)
+            .then((category) => {
+              res.redirect('/admin/categories')
+            })
+        })
+    }
+  },
+
+  deleteCategory: (req, res) => {
+    return Category.findByPk(req.params.id)
+      .then((category) => {
+        category.destroy()
+          .then((category) => {
+            res.redirect('/admin/categories')
           })
       })
   },

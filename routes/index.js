@@ -44,4 +44,11 @@ module.exports = (app, passport) => {
   app.get('/admin/members', authenticatedAdmin, adminController.getMembers)
   app.put('/admin/members/:id', authenticatedAdmin, adminController.putApproved)
 
+  app.get('/admin/categories', authenticatedAdmin, adminController.getCategories)
+  app.get('/admin/categories/create', authenticated, adminController.getCategoryCEpage)
+  app.post('/admin/categories', authenticatedAdmin, adminController.postCategory)
+  app.get('/admin/categories/:id', authenticatedAdmin, adminController.getCategory)
+  app.put('/admin/categories/:id', authenticatedAdmin, adminController.putCategory)
+  app.delete('/admin/categories/:id', authenticatedAdmin, adminController.deleteCategory)
+
 }
