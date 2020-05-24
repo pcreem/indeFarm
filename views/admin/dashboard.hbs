@@ -6,7 +6,7 @@
 <a type="button" href="/admin/categories" class="btn btn-outline-info">Category</a>
 {{/if}}
 
-<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+<button class="btn btn-secondary dropdown-toggle dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown"
   aria-haspopup="true" aria-expanded="false">
   新增
 </button>
@@ -16,6 +16,21 @@
   {{#if user.role}} <a class="dropdown-item" href="/admin/categories/create">Category</a>{{/if}}
 </div>
 <a type="button" href="/logout" class="btn btn-outline-info">LogOut</a>
+
+{{#if categorys}}
+<br class="featurette-divider">
+<br class="featurette-divider">
+
+<a type="button" class="btn btn-outline-info {{#ifCond '' categoryId}}active{{/ifCond}}" href="?categoryId=">全部</a>
+
+{{#each categorys}}
+<a type="button" class="btn btn-outline-info {{#ifCond this.id ../categoryId}}active{{/ifCond}}"
+  href="?categoryId={{this.id}}">{{this.name}}</a>
+{{/each}}
+
+
+{{/if}}
+
 
 <br class="featurette-divider">
 <br class="featurette-divider">

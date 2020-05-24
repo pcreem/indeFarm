@@ -63,14 +63,13 @@
                 <label class="input-group-text" for="CategoryId">農產類別</label>
               </div>
               <select class="form-control" id="CategoryId" name="CategoryId">
-                {{#if product.CategoryId}}
-                <option value="{{product.CategoryId}}" selected disabled>{{product.Category.name}}</option>
+                {{#if agrifood.CategoryId}}
+                <option value="{{agrifood.CategoryId}}" selected disabled>{{agrifood.Category.name}}</option>
                 {{else}}
                 <option hidden disabled selected value> -- select an option -- </option>
-                {{#each categories}}
+                {{#each categorys}}
                 <option value="{{this.id}}">{{this.name}}</option>
                 {{/each}}
-                <option value="1">One</option>
                 {{/if}}
               </select>
             </div>

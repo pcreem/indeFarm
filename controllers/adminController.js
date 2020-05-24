@@ -10,19 +10,42 @@ const fs = require('fs')
 const adminController = {
   getDashboard: (req, res) => {
     let whereQuery = {}
-    whereQuery['UserId'] = req.user.id
+    let categoryId = ''
+    if (req.query.categoryId) {
+      categoryId = Number(req.query.categoryId)
+      whereQuery['CategoryId'] = categoryId
+    }
+
     if (req.user.role) {
-      return Agrifood.findAll({ raw: true }).then(agrifoods => {
-        return res.render('admin/dashboard', { agrifoods: agrifoods })
+      return Agrifood.findAll({ include: Category, where: whereQuery, raw: true }).then(agrifoods => {
+        Category.findAll({ raw: true }).then(categorys => {
+          return res.render('admin/dashboard', {
+            agrifoods: agrifoods,
+            categorys: categorys,
+            categoryId: categoryId
+          })
+        })
       })
     }
-    return Agrifood.findAll({ where: whereQuery, raw: true }).then(agrifoods => {
-      return res.render('admin/dashboard', { agrifoods: agrifoods })
+    whereQuery['UserId'] = req.user.id
+    return Agrifood.findAll({ include: Category, where: whereQuery, raw: true }).then(agrifoods => {
+      Category.findAll({ raw: true }).then(categorys => {
+        console.log(categorys)
+        return res.render('admin/dashboard', {
+          agrifoods: agrifoods,
+          categorys: categorys,
+          categoryId: categoryId
+        })
+      })
     })
   },
 
   getAgrifoodCEpage: (req, res) => {
-    return res.render('admin/creatEdit/agrifood')
+    Category.findAll({ raw: true }).then(categorys => {
+      return res.render('admin/creatEdit/agrifood', {
+        categorys: categorys
+      })
+    })
   },
 
   postAgrifood: (req, res) => {
@@ -80,7 +103,7 @@ const adminController = {
   },
 
   editAgrifood: (req, res) => {
-    return Agrifood.findByPk(req.params.id, { raw: true }).then(agrifood => {
+    return Agrifood.findByPk(req.params.id, { include: Category, raw: true }).then(agrifood => {
       if (agrifood.UserId !== req.user.id && !req.user.role) {
         req.flash('error_messages', '404 Page not found')
         return res.redirect('/index')
