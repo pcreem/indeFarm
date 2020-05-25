@@ -40,6 +40,14 @@ module.exports = (app, passport) => {
   app.put('/admin/agrifoods/:id', authenticated, upload.single('image'), adminController.putAgrifood)
   app.delete('/admin/agrifoods/:id', authenticated, adminController.deleteAgrifood)
 
+  app.get('/admin/news', authenticated, adminController.getNewses)
+  app.get('/admin/news/create', authenticated, adminController.getNewsCEpage)
+  app.post('/admin/newses', authenticated, upload.single('image'), adminController.postNews)
+  app.get('/admin/newses/:id', authenticated, adminController.getNews)
+  app.get('/admin/newses/:id/edit', authenticated, adminController.editNews)
+  app.put('/admin/newses/:id', authenticated, upload.single('image'), adminController.putNews)
+  app.delete('/admin/newses/:id', authenticated, adminController.deleteNews)
+
   //admin only
   app.get('/admin/members', authenticatedAdmin, adminController.getMembers)
   app.put('/admin/members/:id', authenticatedAdmin, adminController.putApproved)

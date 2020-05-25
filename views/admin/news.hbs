@@ -1,0 +1,51 @@
+<a type="button" href="/admin/dashboard" class="btn btn-outline-primary">農產</a>
+<a type="button" href="/admin/news" class="btn btn-outline-secondary">新聞</a>
+<a type="button" href="/admin/profile" class="btn btn-outline-success">Profile</a>
+{{#if user.role}}
+<a type="button" href="/admin/members" class="btn btn-outline-info">members</a>
+<a type="button" href="/admin/categories" class="btn btn-outline-info">Category</a>
+{{/if}}
+
+<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+  aria-haspopup="true" aria-expanded="false">
+  新增
+</button>
+<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+  <a class="dropdown-item" href="/admin/agrifoods/create">農產</a>
+  <a class="dropdown-item" href="/admin/news/create">新聞</a>
+  {{#if user.role}} <a class="dropdown-item" href="/admin/categories/create">Category</a>{{/if}}
+</div><a type="button" href="/logout" class="btn btn-outline-info">LogOut</a>
+
+<br class="featurette-divider">
+<br class="featurette-divider">
+
+<div class="card mb-3">
+  <div class="row no-gutters">
+    <div class="col-md-5">
+      <img class="img-responsive center-block card-img-top" src="{{news.image}}">
+    </div>
+    <div class="col-md-7">
+      <div class="card-body">
+
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">新聞標題</span>
+          </div>
+          <p class="form-control">{{news.name}}</p>
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">內文</span>
+          </div>
+          <p class="form-control">{{news.description}}</p>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<a class="btn btn-outline-primary" class="card-link" href="/admin/newses/{{news.id}}/edit" role="button">編輯</a>
+<a class="btn btn-outline-primary" href="javascript:history.back()" role="button">回上一頁</a>
