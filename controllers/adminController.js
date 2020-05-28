@@ -33,7 +33,6 @@ const adminController = {
     } else {
       return User.findByPk(req.user.id)
         .then((profile) => {
-          console.log(req.body.atm)
           profile.update({
             name: req.body.name,
             phone: req.body.phone,
@@ -212,7 +211,6 @@ const adminController = {
     whereQuery['UserId'] = req.user.id
     return Agrifood.findAll({ include: Category, where: whereQuery, raw: true }).then(agrifoods => {
       Category.findAll({ raw: true }).then(categorys => {
-        console.log(categorys)
         return res.render('admin/dashboard', {
           agrifoods: agrifoods,
           categorys: categorys,
