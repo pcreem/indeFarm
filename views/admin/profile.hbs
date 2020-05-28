@@ -1,0 +1,64 @@
+<a type="button" href="/admin/dashboard" class="btn btn-outline-primary">農產</a>
+<a type="button" href="/admin/news" class="btn btn-outline-secondary">新聞</a>
+<a type="button" href="/admin/profile" class="btn btn-outline-success">Profile</a>
+{{#if user.role}}
+<a type="button" href="/admin/members" class="btn btn-outline-info">members</a>
+<a type="button" href="/admin/categories" class="btn btn-outline-info">Category</a>
+{{/if}}
+
+<button class="btn btn-secondary dropdown-toggle dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+  aria-haspopup="true" aria-expanded="false">
+  新增
+</button>
+<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+  <a class="dropdown-item" href="/admin/agrifoods/create">農產</a>
+  <a class="dropdown-item" href="/admin/news/create">新聞</a>
+  {{#if user.role}} <a class="dropdown-item" href="/admin/categories/create">Category</a>{{/if}}
+</div>
+<a type="button" href="/logout" class="btn btn-outline-info">LogOut</a>
+
+{{#if categorys}}
+<br class="featurette-divider">
+<br class="featurette-divider">
+
+<a type="button" class="btn btn-outline-info {{#ifCond '' categoryId}}active{{/ifCond}}" href="?categoryId=">全部</a>
+
+{{#each categorys}}
+<a type="button" class="btn btn-outline-info {{#ifCond this.id ../categoryId}}active{{/ifCond}}"
+  href="?categoryId={{this.id}}">{{this.name}}</a>
+{{/each}}
+
+
+{{/if}}
+
+
+<br class="featurette-divider">
+<br class="featurette-divider">
+
+<form>
+  <div class="form-group">
+    <label for="exampleInputName">機構名稱</label>
+    <input type="text" name="name" readonly class="form-control" value="{{profile.name}}">
+  </div>
+  <div class="form-group">
+    <label for="phone">電話</label>
+    <input type="text" name="phone" readonly class="form-control" value="{{profile.phone}}">
+  </div>
+  <div class="form-group">
+    <label for="address">地址</label>
+    <input type="text" name="address" readonly class="form-control" value="{{profile.address}}">
+  </div>
+  <div class="form-group">
+    <label for="atm">ATM</label>
+    <input type="text" name="atm" readonly class="form-control" value="{{profile.ATM}}">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputEmail1">Email</label>
+    <input type="text" name="email" readonly class="form-control" value="{{profile.email}}"
+      aria-describedby="emailHelp">
+  </div>
+  {{#unless user.role}}
+  <a class="btn btn-outline-primary" class="card-link" href="/admin/profile/{{profile.id}}/edit"
+    role="button">編輯</a>{{/unless}}
+  <a class="btn btn-outline-primary" href="javascript:history.back()" role="button">回上一頁</a>
+</form>

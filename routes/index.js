@@ -48,8 +48,13 @@ module.exports = (app, passport) => {
   app.put('/admin/newses/:id', authenticated, upload.single('image'), adminController.putNews)
   app.delete('/admin/newses/:id', authenticated, adminController.deleteNews)
 
+  app.get('/admin/profile', authenticated, adminController.getProfile)
+  app.get('/admin/profile/:id/edit', authenticated, adminController.getProfileCEpage)
+  app.put('/admin/profile/:id', authenticated, adminController.putProfile)
+
   //admin only
   app.get('/admin/members', authenticatedAdmin, adminController.getMembers)
+  app.get('/admin/members/:id', authenticatedAdmin, adminController.getMember)
   app.put('/admin/members/:id', authenticatedAdmin, adminController.putApproved)
 
   app.get('/admin/categories', authenticatedAdmin, adminController.getCategories)

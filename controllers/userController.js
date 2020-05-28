@@ -22,7 +22,7 @@ const userController = {
             name: req.body.name,
             phone: req.body.phone,
             address: req.body.address,
-            atm: req.body.atm ? req.body.atm : null,
+            ATM: req.body.atm ? req.body.atm : null,
             email: req.body.email,
             password: bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10), null)
           }).then(user => {

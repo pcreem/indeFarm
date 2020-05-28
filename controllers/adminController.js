@@ -10,6 +10,45 @@ const IMGUR_CLIENT_ID = process.env.IMGUR_CLIENT_ID
 const fs = require('fs')
 
 const adminController = {
+  getProfile: (req, res) => {
+    return User.findByPk(req.user.id, { raw: true }).then(profile => {
+      return res.render('admin/profile', {
+        profile: profile
+      })
+    })
+  },
+
+  getProfileCEpage: (req, res) => {
+    return User.findByPk(req.user.id, { raw: true }).then(profile => {
+      return res.render('admin/creatEdit/profile', {
+        profile: profile
+      })
+    })
+  },
+
+  putProfile: (req, res) => {
+    if (!req.body.name) {
+      req.flash('error_messages', 'name didn\'t exist')
+      return res.redirect('back')
+    } else {
+      return User.findByPk(req.user.id)
+        .then((profile) => {
+          console.log(req.body.atm)
+          profile.update({
+            name: req.body.name,
+            phone: req.body.phone,
+            address: req.body.address,
+            ATM: req.body.atm ? req.body.atm : null,
+            email: req.body.email
+          })
+            .then((profile) => {
+              res.redirect('/admin/profile')
+            })
+        })
+    }
+  },
+
+
   getNewses: (req, res) => {
     let whereQuery = {}
     if (req.user.role) {
@@ -388,6 +427,14 @@ const adminController = {
   getMembers: (req, res) => {
     return User.findAll({ raw: true }).then(members => {
       return res.render('admin/dashboard', { members: members })
+    })
+  },
+
+  getMember: (req, res) => {
+    return User.findByPk(req.params.id, { raw: true }).then(profile => {
+      return res.render('admin/profile', {
+        profile: profile
+      })
     })
   },
 
