@@ -17,7 +17,6 @@ const adminController = {
       })
     })
   },
-
   getProfileCEpage: (req, res) => {
     return User.findByPk(req.user.id, { raw: true }).then(profile => {
       return res.render('admin/creatEdit/profile', {
@@ -25,7 +24,6 @@ const adminController = {
       })
     })
   },
-
   putProfile: (req, res) => {
     if (!req.body.name) {
       req.flash('error_messages', 'name didn\'t exist')
@@ -47,7 +45,6 @@ const adminController = {
     }
   },
 
-
   getNewses: (req, res) => {
     let whereQuery = {}
     if (req.user.role) {
@@ -64,11 +61,9 @@ const adminController = {
       })
     })
   },
-
   getNewsCEpage: (req, res) => {
     return res.render('admin/creatEdit/news')
   },
-
   postNews: (req, res) => {
     if (!req.body.name) {
       req.flash('error_messages', "name didn't exist")
@@ -102,7 +97,6 @@ const adminController = {
       })
     }
   },
-
   getNews: (req, res) => {
     return News.findByPk(req.params.id, { raw: true }).then(news => {
       if (news.UserId !== req.user.id && !req.user.role) {
@@ -114,7 +108,6 @@ const adminController = {
       })
     })
   },
-
   editNews: (req, res) => {
     return News.findByPk(req.params.id, { raw: true }).then(news => {
       if (news.UserId !== req.user.id && !req.user.role) {
@@ -124,7 +117,6 @@ const adminController = {
       return res.render('admin/creatEdit/news', { news: news })
     })
   },
-
   putNews: (req, res) => {
     if (!req.body.name) {
       req.flash('error_messages', "name didn't exist")
@@ -173,7 +165,6 @@ const adminController = {
             })
         })
   },
-
   deleteNews: (req, res) => {
     return News.findByPk(req.params.id)
       .then((news) => {
@@ -187,7 +178,6 @@ const adminController = {
           })
       })
   },
-
 
   getDashboard: (req, res) => {
     let whereQuery = {}
@@ -219,7 +209,6 @@ const adminController = {
       })
     })
   },
-
   getAgrifoodCEpage: (req, res) => {
     Category.findAll({ raw: true }).then(categorys => {
       return res.render('admin/creatEdit/agrifood', {
@@ -227,7 +216,6 @@ const adminController = {
       })
     })
   },
-
   postAgrifood: (req, res) => {
     if (!req.body.name) {
       req.flash('error_messages', "name didn't exist")
@@ -269,7 +257,6 @@ const adminController = {
       })
     }
   },
-
   getAgrifood: (req, res) => {
     return Agrifood.findByPk(req.params.id, { raw: true }).then(agrifood => {
       if (agrifood.UserId !== req.user.id && !req.user.role) {
@@ -281,7 +268,6 @@ const adminController = {
       })
     })
   },
-
   editAgrifood: (req, res) => {
     return Agrifood.findByPk(req.params.id, { include: Category, raw: true }).then(agrifood => {
       if (agrifood.UserId !== req.user.id && !req.user.role) {
@@ -291,7 +277,6 @@ const adminController = {
       return res.render('admin/creatEdit/agrifood', { agrifood: agrifood })
     })
   },
-
   putAgrifood: (req, res) => {
     if (!req.body.name) {
       req.flash('error_messages', "name didn't exist")
@@ -350,7 +335,6 @@ const adminController = {
             })
         })
   },
-
   deleteAgrifood: (req, res) => {
     return Agrifood.findByPk(req.params.id)
       .then((agrifood) => {
@@ -370,11 +354,9 @@ const adminController = {
       return res.render('admin/dashboard', { categories: categories })
     })
   },
-
   getCategoryCEpage: (req, res) => {
     return res.render('admin/creatEdit/category')
   },
-
   postCategory: (req, res) => {
     if (!req.body.name) {
       req.flash('error_messages', 'name didn\'t exist')
@@ -388,7 +370,6 @@ const adminController = {
         })
     }
   },
-
   getCategory: (req, res) => {
     return Category.findByPk(req.params.id, { raw: true }).then(category => {
       return res.render('admin/creatEdit/category', {
@@ -396,7 +377,6 @@ const adminController = {
       })
     })
   },
-
   putCategory: (req, res) => {
     if (!req.body.name) {
       req.flash('error_messages', 'name didn\'t exist')
@@ -411,7 +391,6 @@ const adminController = {
         })
     }
   },
-
   deleteCategory: (req, res) => {
     return Category.findByPk(req.params.id)
       .then((category) => {
@@ -427,7 +406,6 @@ const adminController = {
       return res.render('admin/dashboard', { members: members })
     })
   },
-
   getMember: (req, res) => {
     return User.findByPk(req.params.id, { raw: true }).then(profile => {
       return res.render('admin/profile', {
@@ -435,7 +413,6 @@ const adminController = {
       })
     })
   },
-
   putApproved: (req, res) => {
     return User.findByPk(req.params.id).then(user => {
       user.update({ approved: !user.approved })
