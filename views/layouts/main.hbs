@@ -32,7 +32,7 @@
 
   <main class="page-container bg-white">
     <nav id="navbar-example2" class="navbar navbar-expand-lg navbar-light bg-light fixed-top ">
-      <a class="navbar-brand" href="/index"><img width="70" src="upload/logo.png" alt="Cartzilla"></a>
+      <a class="navbar-brand" href="/index"><img width="70" src="/upload/logo.png" alt="Cartzilla"></a>
 
       <button class="navbar-toggler justify-content-end" type="button" data-toggle="collapse"
         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -61,7 +61,7 @@
     <div class="content-wrap">
 
 
-      {{#if success_messages}}
+      {{!-- {{#if success_messages}}
       <br class="featurette-divider">
       <div class="alert alert-success" role="alert" style="margin: 30px 0 ;">
         {{success_messages}}
@@ -72,7 +72,7 @@
       <div class="alert alert-danger" role="alert" style="margin: 30px 0 ;">
         {{error_messages}}
       </div>
-      {{/if}}
+      {{/if}} --}}
 
       {{{body}}}
 
@@ -80,25 +80,7 @@
     <br class="featurette-divider">
     <!-- Footer -->
 
-    <nav id="navbar-example2" class="navbar navbar-expand-sm navbar-dark bg-dark footer">
-      <a class="navbar-brand" href="/index"><img width="70" src="upload/logo.png" alt="Cartzilla"></a>
 
-      <ul class="collapse navbar-collapse navbar-nav justify-content-end" id="navbarSupportedContent">
-        <li class="nav-item ">
-          <a class="nav-link" href="#agrifood">@bestSeller</a>
-        </li>
-        <li class="nav-item ">
-          <a class="nav-link" href="#news">@news</a>
-        </li>
-        <li class="nav-item ">
-          <form class="form-inline ">
-            <input class="form-control " type="text" placeholder="Search" aria-label="Search">
-          </form>
-
-        </li>
-      </ul>
-
-    </nav>
   </main>
 
 </body>

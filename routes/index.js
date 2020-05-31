@@ -6,7 +6,8 @@ module.exports = (app, passport) => {
 
   const authenticated = (req, res, next) => {
     if (req.isAuthenticated()) {
-      return next()
+      if (req.user.approved) { return next() }
+      return res.redirect('/')
     }
     res.redirect('/signin')
   }

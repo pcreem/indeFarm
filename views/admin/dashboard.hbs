@@ -1,180 +1,189 @@
-<a type="button" href="/admin/dashboard" class="btn btn-outline-primary">農產</a>
-<a type="button" href="/admin/news" class="btn btn-outline-secondary">新聞</a>
-<a type="button" href="/admin/profile" class="btn btn-outline-success">Profile</a>
-{{#if user.role}}
-<a type="button" href="/admin/members" class="btn btn-outline-info">members</a>
-<a type="button" href="/admin/categories" class="btn btn-outline-info">Category</a>
-{{/if}}
+<div class="container">
+  <br class="featurette-divider">
+  <br class="featurette-divider">
+  <br class="featurette-divider">
+  <br class="featurette-divider">
+  <br class="featurette-divider">
 
-<button class="btn btn-secondary dropdown-toggle dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-  aria-haspopup="true" aria-expanded="false">
-  新增
-</button>
-<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-  <a class="dropdown-item" href="/admin/agrifoods/create">農產</a>
-  <a class="dropdown-item" href="/admin/news/create">新聞</a>
-  {{#if user.role}} <a class="dropdown-item" href="/admin/categories/create">Category</a>{{/if}}
+
+  <a type="button" href="/admin/dashboard" class="btn btn-outline-primary">農產</a>
+  <a type="button" href="/admin/news" class="btn btn-outline-secondary">新聞</a>
+  <a type="button" href="/admin/profile" class="btn btn-outline-success">Profile</a>
+  {{#if user.role}}
+  <a type="button" href="/admin/members" class="btn btn-outline-info">members</a>
+  <a type="button" href="/admin/categories" class="btn btn-outline-info">Category</a>
+  {{/if}}
+
+  <button class="btn btn-secondary dropdown-toggle dropdown" type="button" id="dropdownMenuButton"
+    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    新增
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="/admin/agrifoods/create">農產</a>
+    <a class="dropdown-item" href="/admin/news/create">新聞</a>
+    {{#if user.role}} <a class="dropdown-item" href="/admin/categories/create">Category</a>{{/if}}
+  </div>
+  <a type="button" href="/logout" class="btn btn-outline-info">LogOut</a>
+
+  {{#if categorys}}
+  <br class="featurette-divider">
+  <br class="featurette-divider">
+
+  <a type="button" class="btn btn-outline-info {{#ifCond '' categoryId}}active{{/ifCond}}" href="?categoryId=">全部</a>
+
+  {{#each categorys}}
+  <a type="button" class="btn btn-outline-info {{#ifCond this.id ../categoryId}}active{{/ifCond}}"
+    href="?categoryId={{this.id}}">{{this.name}}</a>
+  {{/each}}
+
+
+  {{/if}}
+
+
+  <br class="featurette-divider">
+  <br class="featurette-divider">
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">id</th>
+        <th scope="col">name</th>
+        <th scope="col">date</th>
+        {{#if members}}
+        <th scope="col">approved</th>
+        {{/if}}
+        <th scope="col">#</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each agrifoods}}
+      <tr>
+        <td>{{this.id}}</td>
+        <td>
+          <a href="/admin/agrifoods/{{this.id}}">
+            {{this.name}}
+          </a>
+        </td>
+
+        <td>{{moment this.updatedAt}}</td>
+        <td>
+          <form action="/admin/agrifoods/{{this.id}}?_method=DELETE" method="POST" style="display: inline;">
+            <button type="submit" class="btn btn-link">
+              <!--delete botton-->
+              <svg class="bi bi-trash" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M5.5 5.5A.5.5 0 016 6v6a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm2.5 0a.5.5 0 01.5.5v6a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm3 .5a.5.5 0 00-1 0v6a.5.5 0 001 0V6z" />
+                <path fill-rule="evenodd"
+                  d="M14.5 3a1 1 0 01-1 1H13v9a2 2 0 01-2 2H5a2 2 0 01-2-2V4h-.5a1 1 0 01-1-1V2a1 1 0 011-1H6a1 1 0 011-1h2a1 1 0 011 1h3.5a1 1 0 011 1v1zM4.118 4L4 4.059V13a1 1 0 001 1h6a1 1 0 001-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"
+                  clip-rule="evenodd" />
+              </svg>
+              <!--delete botton-->
+            </button>
+          </form>
+        </td>
+      </tr>
+      {{/each}}
+
+      {{#each newses}}
+      <tr>
+        <td>{{this.id}}</td>
+        <td>
+          <a href="/admin/newses/{{this.id}}">
+            {{this.name}}
+          </a>
+        </td>
+
+        <td>{{moment this.updatedAt}}</td>
+
+        <td>
+          <form action="/admin/newses/{{this.id}}?_method=DELETE" method="POST" style="display: inline;">
+            <button type="submit" class="btn btn-link">
+              <!--delete botton-->
+              <svg class="bi bi-trash" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M5.5 5.5A.5.5 0 016 6v6a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm2.5 0a.5.5 0 01.5.5v6a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm3 .5a.5.5 0 00-1 0v6a.5.5 0 001 0V6z" />
+                <path fill-rule="evenodd"
+                  d="M14.5 3a1 1 0 01-1 1H13v9a2 2 0 01-2 2H5a2 2 0 01-2-2V4h-.5a1 1 0 01-1-1V2a1 1 0 011-1H6a1 1 0 011-1h2a1 1 0 011 1h3.5a1 1 0 011 1v1zM4.118 4L4 4.059V13a1 1 0 001 1h6a1 1 0 001-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"
+                  clip-rule="evenodd" />
+              </svg>
+              <!--delete botton-->
+            </button>
+          </form>
+        </td>
+      </tr>
+      {{/each}}
+
+      {{#each members}}
+      <tr>
+        <td>{{this.id}}</td>
+        <td>
+          <a href="/admin/members/{{this.id}}">
+            {{this.name}}
+          </a>
+        </td>
+
+        <td>{{moment this.updatedAt}}</td>
+        <td>
+          <form action="/admin/members/{{this.id}}?_method=PUT" method="POST" style="display: inline;">
+            <button type="submit" class="btn btn-link p-0">
+              {{#if this.approved}}
+              yes
+              {{else}}
+              no
+              {{/if}}
+            </button>
+          </form>
+        </td>
+        <td>
+          <form action="/admin/members/{{this.id}}?_method=DELETE" method="POST" style="display: inline;">
+            <button type="submit" class="btn btn-link">
+              <!--delete botton-->
+              <svg class="bi bi-trash" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M5.5 5.5A.5.5 0 016 6v6a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm2.5 0a.5.5 0 01.5.5v6a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm3 .5a.5.5 0 00-1 0v6a.5.5 0 001 0V6z" />
+                <path fill-rule="evenodd"
+                  d="M14.5 3a1 1 0 01-1 1H13v9a2 2 0 01-2 2H5a2 2 0 01-2-2V4h-.5a1 1 0 01-1-1V2a1 1 0 011-1H6a1 1 0 011-1h2a1 1 0 011 1h3.5a1 1 0 011 1v1zM4.118 4L4 4.059V13a1 1 0 001 1h6a1 1 0 001-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"
+                  clip-rule="evenodd" />
+              </svg>
+              <!--delete botton-->
+            </button>
+          </form>
+        </td>
+      </tr>
+      {{/each}}
+
+      {{#each categories}}
+      <tr>
+        <td>{{this.id}}</td>
+        <td>
+          <a href="/admin/categories/{{this.id}}">
+            {{this.name}}
+          </a>
+        </td>
+
+        <td>{{moment this.updatedAt}}</td>
+        <td>
+          <form action="/admin/categories/{{this.id}}?_method=DELETE" method="POST" style="display: inline;">
+            <button type="submit" class="btn btn-link">
+              <!--delete botton-->
+              <svg class="bi bi-trash" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M5.5 5.5A.5.5 0 016 6v6a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm2.5 0a.5.5 0 01.5.5v6a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm3 .5a.5.5 0 00-1 0v6a.5.5 0 001 0V6z" />
+                <path fill-rule="evenodd"
+                  d="M14.5 3a1 1 0 01-1 1H13v9a2 2 0 01-2 2H5a2 2 0 01-2-2V4h-.5a1 1 0 01-1-1V2a1 1 0 011-1H6a1 1 0 011-1h2a1 1 0 011 1h3.5a1 1 0 011 1v1zM4.118 4L4 4.059V13a1 1 0 001 1h6a1 1 0 001-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"
+                  clip-rule="evenodd" />
+              </svg>
+              <!--delete botton-->
+            </button>
+          </form>
+        </td>
+      </tr>
+      {{/each}}
+
+    </tbody>
+  </table>
 </div>
-<a type="button" href="/logout" class="btn btn-outline-info">LogOut</a>
-
-{{#if categorys}}
-<br class="featurette-divider">
-<br class="featurette-divider">
-
-<a type="button" class="btn btn-outline-info {{#ifCond '' categoryId}}active{{/ifCond}}" href="?categoryId=">全部</a>
-
-{{#each categorys}}
-<a type="button" class="btn btn-outline-info {{#ifCond this.id ../categoryId}}active{{/ifCond}}"
-  href="?categoryId={{this.id}}">{{this.name}}</a>
-{{/each}}
-
-
-{{/if}}
-
-
-<br class="featurette-divider">
-<br class="featurette-divider">
-
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th scope="col">id</th>
-      <th scope="col">name</th>
-      <th scope="col">date</th>
-      {{#if members}}
-      <th scope="col">approved</th>
-      {{/if}}
-      <th scope="col">#</th>
-    </tr>
-  </thead>
-  <tbody>
-    {{#each agrifoods}}
-    <tr>
-      <td>{{this.id}}</td>
-      <td>
-        <a href="/admin/agrifoods/{{this.id}}">
-          {{this.name}}
-        </a>
-      </td>
-
-      <td>{{moment this.updatedAt}}</td>
-      <td>
-        <form action="/admin/agrifoods/{{this.id}}?_method=DELETE" method="POST" style="display: inline;">
-          <button type="submit" class="btn btn-link">
-            <!--delete botton-->
-            <svg class="bi bi-trash" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
-              xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M5.5 5.5A.5.5 0 016 6v6a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm2.5 0a.5.5 0 01.5.5v6a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm3 .5a.5.5 0 00-1 0v6a.5.5 0 001 0V6z" />
-              <path fill-rule="evenodd"
-                d="M14.5 3a1 1 0 01-1 1H13v9a2 2 0 01-2 2H5a2 2 0 01-2-2V4h-.5a1 1 0 01-1-1V2a1 1 0 011-1H6a1 1 0 011-1h2a1 1 0 011 1h3.5a1 1 0 011 1v1zM4.118 4L4 4.059V13a1 1 0 001 1h6a1 1 0 001-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"
-                clip-rule="evenodd" />
-            </svg>
-            <!--delete botton-->
-          </button>
-        </form>
-      </td>
-    </tr>
-    {{/each}}
-
-    {{#each newses}}
-    <tr>
-      <td>{{this.id}}</td>
-      <td>
-        <a href="/admin/newses/{{this.id}}">
-          {{this.name}}
-        </a>
-      </td>
-
-      <td>{{moment this.updatedAt}}</td>
-
-      <td>
-        <form action="/admin/newses/{{this.id}}?_method=DELETE" method="POST" style="display: inline;">
-          <button type="submit" class="btn btn-link">
-            <!--delete botton-->
-            <svg class="bi bi-trash" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
-              xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M5.5 5.5A.5.5 0 016 6v6a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm2.5 0a.5.5 0 01.5.5v6a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm3 .5a.5.5 0 00-1 0v6a.5.5 0 001 0V6z" />
-              <path fill-rule="evenodd"
-                d="M14.5 3a1 1 0 01-1 1H13v9a2 2 0 01-2 2H5a2 2 0 01-2-2V4h-.5a1 1 0 01-1-1V2a1 1 0 011-1H6a1 1 0 011-1h2a1 1 0 011 1h3.5a1 1 0 011 1v1zM4.118 4L4 4.059V13a1 1 0 001 1h6a1 1 0 001-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"
-                clip-rule="evenodd" />
-            </svg>
-            <!--delete botton-->
-          </button>
-        </form>
-      </td>
-    </tr>
-    {{/each}}
-
-    {{#each members}}
-    <tr>
-      <td>{{this.id}}</td>
-      <td>
-        <a href="/admin/members/{{this.id}}">
-          {{this.name}}
-        </a>
-      </td>
-
-      <td>{{moment this.updatedAt}}</td>
-      <td>
-        <form action="/admin/members/{{this.id}}?_method=PUT" method="POST" style="display: inline;">
-          <button type="submit" class="btn btn-link p-0">
-            {{#if this.approved}}
-            yes
-            {{else}}
-            no
-            {{/if}}
-          </button>
-        </form>
-      </td>
-      <td>
-        <form action="/admin/members/{{this.id}}?_method=DELETE" method="POST" style="display: inline;">
-          <button type="submit" class="btn btn-link">
-            <!--delete botton-->
-            <svg class="bi bi-trash" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
-              xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M5.5 5.5A.5.5 0 016 6v6a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm2.5 0a.5.5 0 01.5.5v6a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm3 .5a.5.5 0 00-1 0v6a.5.5 0 001 0V6z" />
-              <path fill-rule="evenodd"
-                d="M14.5 3a1 1 0 01-1 1H13v9a2 2 0 01-2 2H5a2 2 0 01-2-2V4h-.5a1 1 0 01-1-1V2a1 1 0 011-1H6a1 1 0 011-1h2a1 1 0 011 1h3.5a1 1 0 011 1v1zM4.118 4L4 4.059V13a1 1 0 001 1h6a1 1 0 001-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"
-                clip-rule="evenodd" />
-            </svg>
-            <!--delete botton-->
-          </button>
-        </form>
-      </td>
-    </tr>
-    {{/each}}
-
-    {{#each categories}}
-    <tr>
-      <td>{{this.id}}</td>
-      <td>
-        <a href="/admin/categories/{{this.id}}">
-          {{this.name}}
-        </a>
-      </td>
-
-      <td>{{moment this.updatedAt}}</td>
-      <td>
-        <form action="/admin/categories/{{this.id}}?_method=DELETE" method="POST" style="display: inline;">
-          <button type="submit" class="btn btn-link">
-            <!--delete botton-->
-            <svg class="bi bi-trash" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
-              xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M5.5 5.5A.5.5 0 016 6v6a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm2.5 0a.5.5 0 01.5.5v6a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm3 .5a.5.5 0 00-1 0v6a.5.5 0 001 0V6z" />
-              <path fill-rule="evenodd"
-                d="M14.5 3a1 1 0 01-1 1H13v9a2 2 0 01-2 2H5a2 2 0 01-2-2V4h-.5a1 1 0 01-1-1V2a1 1 0 011-1H6a1 1 0 011-1h2a1 1 0 011 1h3.5a1 1 0 011 1v1zM4.118 4L4 4.059V13a1 1 0 001 1h6a1 1 0 001-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"
-                clip-rule="evenodd" />
-            </svg>
-            <!--delete botton-->
-          </button>
-        </form>
-      </td>
-    </tr>
-    {{/each}}
-
-  </tbody>
-</table>
