@@ -1,0 +1,51 @@
+<div class="container">
+  <br class="featurette-divider">
+  <br class="featurette-divider">
+  <br class="featurette-divider">
+
+  {{!-- <nav id="navbar-example2" class="navbar navbar-light bg-light sticky-top">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <ul class="nav nav-pills">
+      {{#each categorys}}
+      <li class="nav-item">
+        <a class="nav-link" href="#{{this.id}}">@{{this.name}}</a>
+      </li>
+      {{/each}}
+    </ul>
+  </nav>
+  <div data-spy="scroll" data-target="#navbar-example2" data-offset="0">
+    {{#each categorys}}
+    <h4 id="{{this.id}}">@{{this.name}}</h4>
+    {{#each ../agrifoods}}
+    {{#ifCond this.CategoryId ../this.id}}
+    <p>Caid {{../this.id}}</p>
+    <p>agrCaid {{this.CategoryId}}</p>
+    <p>{{this.description}}</p>
+    {{/ifCond}}
+    {{/each}}
+
+    {{/each}}
+
+  </div> --}}
+  <div class="row h-auto">
+    <div id="list-example" class="list-group col-3">
+      {{#each categorys}}
+      <a class="list-group-item list-group-item-action" href="#{{this.id}}">{{this.name}}</a>
+      {{/each}}
+    </div>
+    <div class="col-9" data-spy="scroll" data-target="#list-example" data-offset="0" class="scrollspy-example">
+      {{#each categorys}}
+      <h4 id="{{this.id}}">{{this.name}}</h4>
+      {{#each ../agrifoods}}
+      {{#ifCond this.CategoryId ../this.id}}
+      <p>Caid {{../this.id}}</p>
+      <p>agrCaid {{this.CategoryId}}</p>
+      <p>{{this.description}}</p>
+      {{/ifCond}}
+      {{/each}}
+      {{/each}}
+    </div>
+
+  </div>
+</div>
+<!--container-->

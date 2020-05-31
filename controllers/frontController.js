@@ -19,6 +19,30 @@ const frontController = {
         })
       })
     })
-  }
+  },
+  getAgrifoods: (req, res) => {
+    // return res.render('agrifoods')
+
+    let whereQuery = {}
+    let categoryId = ''
+    if (req.query.categoryId) {
+      categoryId = Number(req.query.categoryId)
+      whereQuery['CategoryId'] = categoryId
+    }
+
+    try {
+      return Agrifood.findAll({ include: Category, where: whereQuery, raw: true }).then(agrifoods => {
+        Category.findAll({ raw: true }).then(categorys => {
+          return res.render('agrifoods', {
+            agrifoods: agrifoods,
+            categorys: categorys,
+            categoryId: categoryId
+          })
+        })
+      })
+    } catch (err) {
+      console.log(err)
+    }
+  },
 }
 module.exports = frontController

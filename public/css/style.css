@@ -2,6 +2,9 @@
 
 /* MARKETING CONTENT
 -------------------------------------------------- */
+.container {
+  padding-left: 0;
+}
 
 .featurette-divider {
   margin: 5rem 0; /* Space out the Bootstrap <hr> more */
