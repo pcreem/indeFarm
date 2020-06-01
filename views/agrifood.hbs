@@ -1,0 +1,58 @@
+<div class="container">
+
+  <br class="featurette-divider">
+  <br class="featurette-divider">
+  <br class="featurette-divider">
+
+  <div class="card mb-3">
+    <div class="row no-gutters">
+      <div class="col-md-5">
+        <img class="img-responsive center-block card-img-top" src="{{agrifood.image}}">
+      </div>
+      <div class="col-md-7">
+        <div class="card-body">
+
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">產品名稱</span>
+            </div>
+            <p class="form-control">{{agrifood.name}}</p>
+          </div>
+
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">規格</span>
+            </div>
+            <p class="form-control">{{agrifood.norm}}</p>
+          </div>
+
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">運費</span>
+            </div>
+            <p class="form-control">{{agrifood.freight}}</p>
+          </div>
+
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">售價</span>
+            </div>
+            <p class="form-control">{{agrifood.price}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header">
+      產品詳情
+    </div>
+    <div class="card-body">
+
+      <p class="card-text">{{agrifood.description}}</p>
+
+    </div>
+  </div>
+  <br>
+  <a class="btn btn-outline-primary" href="javascript:history.back()" role="button">回上一頁</a>
+</div>

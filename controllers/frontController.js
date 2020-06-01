@@ -21,8 +21,6 @@ const frontController = {
     })
   },
   getAgrifoods: (req, res) => {
-    // return res.render('agrifoods')
-
     let whereQuery = {}
     let categoryId = ''
     if (req.query.categoryId) {
@@ -43,6 +41,13 @@ const frontController = {
     } catch (err) {
       console.log(err)
     }
+  },
+  getAgrifood: (req, res) => {
+    return Agrifood.findByPk(req.params.id, { raw: true }).then(agrifood => {
+      return res.render('agrifood', {
+        agrifood: agrifood
+      })
+    })
   },
 }
 module.exports = frontController

@@ -25,6 +25,7 @@ module.exports = (app, passport) => {
   app.get('/', (req, res) => res.redirect('/index'))
   app.get('/index', frontController.getIndex)
   app.get('/agrifoods', frontController.getAgrifoods)
+  app.get('/agrifoods/:id', frontController.getAgrifood)
 
   app.get('/signup', userController.signUpPage)
   app.post('/signup', userController.signUp)
