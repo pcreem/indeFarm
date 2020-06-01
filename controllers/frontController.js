@@ -49,5 +49,23 @@ const frontController = {
       })
     })
   },
+  getNewses: (req, res) => {
+    try {
+      return News.findAll({ raw: true }).then(newses => {
+        return res.render('newses', {
+          newses: newses
+        })
+      })
+    } catch (err) {
+      console.log(err)
+    }
+  },
+  getNews: (req, res) => {
+    return News.findByPk(req.params.id, { raw: true }).then(news => {
+      return res.render('news', {
+        news: news
+      })
+    })
+  },
 }
 module.exports = frontController

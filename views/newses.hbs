@@ -1,0 +1,18 @@
+<div class="container">
+
+  <div class="card-deck row justify-content-center">
+    {{#each newses}}
+    <div class="col-10 col-sm-4 mb-4 ">
+      <div class="card">
+        <a href="/newses/{{this.id}}"> <img src='https://picsum.photos/320/240' class="card-img-top" alt="..."></a>
+        <div class="card-body">
+          <h5 class="card-title">{{this.name}}</h5>
+          <p class="text-muted">{{moment this.createdAt}}</p>
+        </div>
+      </div>
+    </div>
+
+    {{/each}}
+
+  </div>
+</div>
