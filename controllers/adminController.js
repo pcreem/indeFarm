@@ -188,7 +188,10 @@ const adminController = {
     }
 
     if (req.user.role) {
-      return Agrifood.findAll({ include: Category, where: whereQuery, raw: true }).then(agrifoods => {
+      return Agrifood.findAll({
+        include: Category, where: whereQuery, raw: true,
+        nest: true
+      }).then(agrifoods => {
         Category.findAll({ raw: true }).then(categorys => {
           return res.render('admin/dashboard', {
             agrifoods: agrifoods,

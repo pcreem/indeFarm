@@ -1,43 +1,53 @@
-<a type="button" href="/admin/dashboard" class="btn btn-outline-primary">農產</a>
-<a type="button" href="/admin/news" class="btn btn-outline-secondary">新聞</a>
-<a type="button" href="/admin/profile" class="btn btn-outline-success">Profile</a>
-{{#if user.role}}
-<a type="button" href="/admin/members" class="btn btn-outline-info">members</a>
-<a type="button" href="/admin/categories" class="btn btn-outline-info">Category</a>
-{{/if}}
+<div class="container">
+  <br class="featurette-divider">
+  <br class="featurette-divider">
+  <br class="featurette-divider">
 
-<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-  aria-haspopup="true" aria-expanded="false">
-  新增
-</button>
-<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-  <a class="dropdown-item" href="/admin/agrifoods/create">農產</a>
-  <a class="dropdown-item" href="/admin/news/create">新聞</a>
-  {{#if user.role}} <a class="dropdown-item" href="/admin/categories/create">Category</a>{{/if}}
-</div><a type="button" href="/logout" class="btn btn-outline-info">LogOut</a>
+  <div class="btn-group container justify-content-center"
+    style="position: fixed;  top:6rem; width:100%; z-index: 10; padding-left:0">
+    <a type="button" href="/admin/dashboard" class="btn btn-secondary ">農產</a>
+    <a type="button" href="/admin/news" class="btn btn-secondary ">新聞</a>
+    <a type="button" href="/admin/profile" class="btn btn-secondary ">Profile</a>
+    {{#if user.role}}
+    <a type="button" href="/admin/members" class="btn btn-secondary ">members</a>
+    <a type="button" href="/admin/categories" class="btn btn-secondary ">Category</a>
+    {{/if}}
 
-<br class="featurette-divider">
-<br class="featurette-divider">
-
-<!--Card view-->
-{{#if category}}
-<form action="/admin/categories/{{category.id}}?_method=PUT" method="POST">
-  <div class="input-group mb-3">
-    <div class="input-group-prepend">
-      <span class="input-group-text" id="basic-addon1">Category</span>
+    <button class="btn btn-secondary dropdown-toggle dropdown" type="button" id="dropdownMenuButton"
+      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      新增
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <a class="dropdown-item" href="/admin/agrifoods/create">農產</a>
+      <a class="dropdown-item" href="/admin/news/create">新聞</a>
+      {{#if user.role}} <a class="dropdown-item" href="/admin/categories/create">Category</a>{{/if}}
     </div>
-    <input type="text" class="form-control" name="name" value="{{category.name}}">
+    <a type="button" href="/logout" class="btn btn-secondary ">LogOut</a>
   </div>
-  <button type="submit" class="btn btn-primary">Update</button>
-</form>
-{{else}}
-<form action="/admin/categories" method="POST">
-  <div class="input-group mb-3">
-    <div class="input-group-prepend">
-      <span class="input-group-text" id="basic-addon1">Category</span>
+
+  <br class="featurette-divider">
+  <br class="featurette-divider">
+
+  <!--Card view-->
+  {{#if category}}
+  <form action="/admin/categories/{{category.id}}?_method=PUT" method="POST">
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1">Category</span>
+      </div>
+      <input type="text" class="form-control" name="name" value="{{category.name}}">
     </div>
-    <input type="text" class="form-control" name="name">
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
-{{/if}}
+    <button type="submit" class="btn btn-primary">Update</button>
+  </form>
+  {{else}}
+  <form action="/admin/categories" method="POST">
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1">Category</span>
+      </div>
+      <input type="text" class="form-control" name="name">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+  {{/if}}
+</div>

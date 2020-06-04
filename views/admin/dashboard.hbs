@@ -3,51 +3,118 @@
   <br class="featurette-divider">
   <br class="featurette-divider">
 
-  <a type="button" href="/admin/dashboard" class="btn btn-outline-primary">農產</a>
-  <a type="button" href="/admin/news" class="btn btn-outline-secondary">新聞</a>
-  <a type="button" href="/admin/profile" class="btn btn-outline-success">Profile</a>
-  {{#if user.role}}
-  <a type="button" href="/admin/members" class="btn btn-outline-info">members</a>
-  <a type="button" href="/admin/categories" class="btn btn-outline-info">Category</a>
-  {{/if}}
+  <div class="btn-group container justify-content-center"
+    style="position: fixed;  top:6rem; width:100%; z-index: 10; padding-left:0">
+    <a type="button" href="/admin/dashboard" class="btn btn-secondary ">農產</a>
+    <a type="button" href="/admin/news" class="btn btn-secondary ">新聞</a>
+    <a type="button" href="/admin/profile" class="btn btn-secondary ">Profile</a>
+    {{#if user.role}}
+    <a type="button" href="/admin/members" class="btn btn-secondary ">members</a>
+    <a type="button" href="/admin/categories" class="btn btn-secondary ">Category</a>
+    {{/if}}
 
-  <button class="btn btn-secondary dropdown-toggle dropdown" type="button" id="dropdownMenuButton"
-    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    新增
-  </button>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <a class="dropdown-item" href="/admin/agrifoods/create">農產</a>
-    <a class="dropdown-item" href="/admin/news/create">新聞</a>
-    {{#if user.role}} <a class="dropdown-item" href="/admin/categories/create">Category</a>{{/if}}
+    <button class="btn btn-secondary dropdown-toggle dropdown" type="button" id="dropdownMenuButton"
+      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      新增
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <a class="dropdown-item" href="/admin/agrifoods/create">農產</a>
+      <a class="dropdown-item" href="/admin/news/create">新聞</a>
+      {{#if user.role}} <a class="dropdown-item" href="/admin/categories/create">Category</a>{{/if}}
+    </div>
+    <a type="button" href="/logout" class="btn btn-secondary ">LogOut</a>
   </div>
-  <a type="button" href="/logout" class="btn btn-outline-info">LogOut</a>
 
-  {{#if categorys}}
+  {{!-- <div class="btn-group container justify-content-center"
+    style="position: fixed;  top: 8.6rem; width:100%; z-index: 10; padding-left:0">
+    {{#if categorys}}
+
+    <a type="button" class="btn btn-outline-info {{#ifCond '' categoryId}}active{{/ifCond}}" href="?categoryId=">全部</a>
+
+    {{#each categorys}}
+    <a type="button" class="btn btn-outline-info {{#ifCond this.id ../categoryId}}active{{/ifCond}}"
+      href="?categoryId={{this.id}}">{{this.name}}</a>
+    {{/each}}
+
+
+    {{/if}}
+  </div> --}}
+
+  <script>
+    function sortTable(n) {
+      var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+      table = document.getElementById("myTable2");
+      switching = true;
+      // Set the sorting direction to ascending:
+      dir = "asc";
+      /* Make a loop that will continue until
+      no switching has been done: */
+      while (switching) {
+        // Start by saying: no switching is done:
+        switching = false;
+        rows = table.rows;
+        /* Loop through all table rows (except the
+        first, which contains table headers): */
+        for (i = 1; i < (rows.length - 1); i++) {
+          // Start by saying there should be no switching:
+          shouldSwitch = false;
+          /* Get the two elements you want to compare,
+          one from current row and one from the next: */
+          x = rows[i].getElementsByTagName("TD")[n];
+          y = rows[i + 1].getElementsByTagName("TD")[n];
+          /* Check if the two rows should switch place,
+          based on the direction, asc or desc: */
+          if (dir == "asc") {
+            if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+              // If so, mark as a switch and break the loop:
+              shouldSwitch = true;
+              break;
+            }
+          } else if (dir == "desc") {
+            if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+              // If so, mark as a switch and break the loop:
+              shouldSwitch = true;
+              break;
+            }
+          }
+        }
+        if (shouldSwitch) {
+          /* If a switch has been marked, make the switch
+          and mark that a switch has been done: */
+          rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+          switching = true;
+          // Each time a switch is done, increase this count by 1:
+          switchcount++;
+        } else {
+          /* If no switching has been done AND the direction is "asc",
+          set the direction to "desc" and run the while loop again. */
+          if (switchcount == 0 && dir == "asc") {
+            dir = "desc";
+            switching = true;
+          }
+        }
+      }
+    }
+  </script>
+
   <br class="featurette-divider">
   <br class="featurette-divider">
 
-  <a type="button" class="btn btn-outline-info {{#ifCond '' categoryId}}active{{/ifCond}}" href="?categoryId=">全部</a>
-
-  {{#each categorys}}
-  <a type="button" class="btn btn-outline-info {{#ifCond this.id ../categoryId}}active{{/ifCond}}"
-    href="?categoryId={{this.id}}">{{this.name}}</a>
-  {{/each}}
-
-
-  {{/if}}
-
-
-  <br class="featurette-divider">
-  <br class="featurette-divider">
-
-  <table class="table table-striped">
+  <table id="myTable2" class="table table-striped">
     <thead>
       <tr>
+        {{#if agrifoods}}
         <th scope="col">id</th>
-        <th scope="col">name</th>
-        <th scope="col">date</th>
+        <th scope="col" onclick="sortTable(1)">name</th>
+        <th scope="col" onclick="sortTable(2)">Category</th>
+        <th scope="col" onclick="sortTable(3)">date</th>
+        {{else}}
+        <th scope="col">id</th>
+        <th scope="col" onclick="sortTable(1)">name</th>
+        <th scope="col" onclick="sortTable(2)">date</th>
+        {{/if}}
         {{#if members}}
-        <th scope="col">approved</th>
+        <th scope="col" onclick="sortTable(3)">approved</th>
         {{/if}}
         <th scope="col">#</th>
       </tr>
@@ -61,7 +128,7 @@
             {{this.name}}
           </a>
         </td>
-
+        <td>{{this.Category.name}}</td>
         <td>{{moment this.updatedAt}}</td>
         <td>
           <form action="/admin/agrifoods/{{this.id}}?_method=DELETE" method="POST" style="display: inline;">

@@ -1,51 +1,46 @@
-<a type="button" href="/admin/dashboard" class="btn btn-outline-primary">農產</a>
-<a type="button" href="/admin/news" class="btn btn-outline-secondary">新聞</a>
-<a type="button" href="/admin/profile" class="btn btn-outline-success">Profile</a>
-{{#if user.role}}
-<a type="button" href="/admin/members" class="btn btn-outline-info">members</a>
-<a type="button" href="/admin/categories" class="btn btn-outline-info">Category</a>
-{{/if}}
+<div class="container">
+  <br class="featurette-divider">
+  <br class="featurette-divider">
+  <br class="featurette-divider">
 
-<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-  aria-haspopup="true" aria-expanded="false">
-  新增
-</button>
-<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-  <a class="dropdown-item" href="/admin/agrifoods/create">農產</a>
-  <a class="dropdown-item" href="/admin/news/create">新聞</a>
-  {{#if user.role}} <a class="dropdown-item" href="/admin/categories/create">Category</a>{{/if}}
-</div><a type="button" href="/logout" class="btn btn-outline-info">LogOut</a>
+  <div class="btn-group container justify-content-center"
+    style="position: fixed;  top:6rem; width:100%; z-index: 10; padding-left:0">
+    <a type="button" href="/admin/dashboard" class="btn btn-secondary ">農產</a>
+    <a type="button" href="/admin/news" class="btn btn-secondary ">新聞</a>
+    <a type="button" href="/admin/profile" class="btn btn-secondary ">Profile</a>
+    {{#if user.role}}
+    <a type="button" href="/admin/members" class="btn btn-secondary ">members</a>
+    <a type="button" href="/admin/categories" class="btn btn-secondary ">Category</a>
+    {{/if}}
 
-<br class="featurette-divider">
-<br class="featurette-divider">
-
-<div class="card mb-3">
-  <div class="row no-gutters">
-    <div class="col-md-5">
-      <img class="img-responsive center-block card-img-top" src="{{news.image}}">
+    <button class="btn btn-secondary dropdown-toggle dropdown" type="button" id="dropdownMenuButton"
+      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      新增
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <a class="dropdown-item" href="/admin/agrifoods/create">農產</a>
+      <a class="dropdown-item" href="/admin/news/create">新聞</a>
+      {{#if user.role}} <a class="dropdown-item" href="/admin/categories/create">Category</a>{{/if}}
     </div>
-    <div class="col-md-7">
-      <div class="card-body">
+    <a type="button" href="/logout" class="btn btn-secondary ">LogOut</a>
+  </div>
 
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text" id="basic-addon1">新聞標題</span>
-          </div>
-          <p class="form-control">{{news.name}}</p>
-        </div>
+  <br class="featurette-divider">
+  <br class="featurette-divider">
 
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text" id="basic-addon1">內文</span>
-          </div>
-          <p class="form-control">{{news.description}}</p>
-        </div>
+  <div class="card" style="width: 25rem; margin: auto;">
+    <img class="img-responsive center-block card-img-top" src='https://picsum.photos/320/240' alt="...">
 
-
-      </div>
+    <div class="card-body">
+      <h5 class="card-title">{{news.name}}</h5>
+      <p class="card-text">{{news.description}}</p>
     </div>
+    <div class="card-footer text-muted">
+      {{moment news.createdAt}}
+    </div>
+    <br>
+
+    <a class="btn btn-outline-primary" class="card-link" href="/admin/newses/{{news.id}}/edit" role="button">編輯</a>
+    <a class="btn btn-outline-primary" href="javascript:history.back()" role="button">回上一頁</a>
   </div>
 </div>
-
-<a class="btn btn-outline-primary" class="card-link" href="/admin/newses/{{news.id}}/edit" role="button">編輯</a>
-<a class="btn btn-outline-primary" href="javascript:history.back()" role="button">回上一頁</a>

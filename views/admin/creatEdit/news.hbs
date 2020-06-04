@@ -1,62 +1,71 @@
-<a type="button" href="/admin/dashboard" class="btn btn-outline-primary">農產</a>
-<a type="button" href="/admin/news" class="btn btn-outline-secondary">新聞</a>
-<a type="button" href="/admin/profile" class="btn btn-outline-success">Profile</a>
-{{#if user.role}}
-<a type="button" href="/admin/members" class="btn btn-outline-info">members</a>
-<a type="button" href="/admin/categories" class="btn btn-outline-info">Category</a>
-{{/if}}
+<div class="container">
+  <br class="featurette-divider">
+  <br class="featurette-divider">
+  <br class="featurette-divider">
 
-<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-  aria-haspopup="true" aria-expanded="false">
-  新增
-</button>
-<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-  <a class="dropdown-item" href="/admin/agrifoods/create">農產</a>
-  <a class="dropdown-item" href="/admin/news/create">新聞</a>
-  {{#if user.role}} <a class="dropdown-item" href="/admin/categories/create">Category</a>{{/if}}
-</div><a type="button" href="/logout" class="btn btn-outline-info">LogOut</a>
-
-<br class="featurette-divider">
-<br class="featurette-divider">
-
-<!--Card view-->
-{{#if news}}
-<form action="/admin/newses/{{news.id}}?_method=PUT" method="POST" enctype="multipart/form-data">
-  {{else}}
-  <form action="/admin/newses" method="POST" enctype="multipart/form-data">
+  <div class="btn-group container justify-content-center"
+    style="position: fixed;  top:6rem; width:100%; z-index: 10; padding-left:0">
+    <a type="button" href="/admin/dashboard" class="btn btn-secondary ">農產</a>
+    <a type="button" href="/admin/news" class="btn btn-secondary ">新聞</a>
+    <a type="button" href="/admin/profile" class="btn btn-secondary ">Profile</a>
+    {{#if user.role}}
+    <a type="button" href="/admin/members" class="btn btn-secondary ">members</a>
+    <a type="button" href="/admin/categories" class="btn btn-secondary ">Category</a>
     {{/if}}
 
-    <div class="input-group mb-3">
-      <div class="custom-file">
-        <input type="file" class="custom-file-input" id="myFile" name="image" value="{{news.image}}" accept="image/*"
-          onchange="myFunction()">
-        <label class="custom-file-label text-muted" for="customFile" id="demo">新聞圖片</label>
-      </div>
+    <button class="btn btn-secondary dropdown-toggle dropdown" type="button" id="dropdownMenuButton"
+      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      新增
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <a class="dropdown-item" href="/admin/agrifoods/create">農產</a>
+      <a class="dropdown-item" href="/admin/news/create">新聞</a>
+      {{#if user.role}} <a class="dropdown-item" href="/admin/categories/create">Category</a>{{/if}}
     </div>
+    <a type="button" href="/logout" class="btn btn-secondary ">LogOut</a>
+  </div>
 
-    <div class="input-group mb-3">
-      <div class="input-group-prepend">
-        <span class="input-group-text" id="basic-addon1">新聞標題</span>
+  <br class="featurette-divider">
+  <br class="featurette-divider">
+
+  <!--Card view-->
+  {{#if news}}
+  <form action="/admin/newses/{{news.id}}?_method=PUT" method="POST" enctype="multipart/form-data">
+    {{else}}
+    <form action="/admin/newses" method="POST" enctype="multipart/form-data">
+      {{/if}}
+
+      <div class="input-group mb-3">
+        <div class="custom-file">
+          <input type="file" class="custom-file-input" id="myFile" name="image" value="{{news.image}}" accept="image/*"
+            onchange="myFunction()">
+          <label class="custom-file-label text-muted" for="customFile" id="demo">新聞圖片</label>
+        </div>
       </div>
-      <input type="text" class="form-control" name="name" id="name" value="{{news.name}}">
-    </div>
 
-    <div class="input-group mb-3">
-      <div class="input-group-prepend">
-        <span class="input-group-text" id="basic-addon1">內文</span>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">新聞標題</span>
+        </div>
+        <input type="text" class="form-control" name="name" id="name" value="{{news.name}}">
       </div>
-      <textarea class="form-control" id="description" name="description" rows="3">{{news.description}}</textarea>
-    </div>
+
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">內文</span>
+        </div>
+        <textarea class="form-control" id="description" name="description" rows="3">{{news.description}}</textarea>
+      </div>
 
 
-    <button type="submit" class="btn btn-primary">送出</button>
-  </form>
-  <!--Card view end-->
+      <button type="submit" class="btn btn-primary">送出</button>
+    </form>
+</div <!--Card view end-->
 
-  <!--image preview script-->
-  <script type='text/javascript'>
-    function myFunction() {
-      var x = document.getElementById("myFile").value;
-      document.getElementById("demo").innerHTML = x;
-    }
-  </script>
+<!--image preview script-->
+<script type='text/javascript'>
+  function myFunction() {
+    var x = document.getElementById("myFile").value;
+    document.getElementById("demo").innerHTML = x;
+  }
+</script>

@@ -1,118 +1,128 @@
-<a type="button" href="/admin/dashboard" class="btn btn-outline-primary">農產</a>
-<a type="button" href="/admin/news" class="btn btn-outline-secondary">新聞</a>
-<a type="button" href="/admin/profile" class="btn btn-outline-success">Profile</a>
-{{#if user.role}}
-<a type="button" href="/admin/members" class="btn btn-outline-info">members</a>
-<a type="button" href="/admin/categories" class="btn btn-outline-info">Category</a>
-{{/if}}
+<div class="container">
+  <br class="featurette-divider">
+  <br class="featurette-divider">
+  <br class="featurette-divider">
 
-<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-  aria-haspopup="true" aria-expanded="false">
-  新增
-</button>
-<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-  <a class="dropdown-item" href="/admin/agrifoods/create">農產</a>
-  <a class="dropdown-item" href="/admin/news/create">新聞</a>
-  {{#if user.role}} <a class="dropdown-item" href="/admin/categories/create">Category</a>{{/if}}
-</div><a type="button" href="/logout" class="btn btn-outline-info">LogOut</a>
-
-<br class="featurette-divider">
-<br class="featurette-divider">
-
-<!--Card view-->
-{{#if agrifood}}
-<form action="/admin/agrifoods/{{agrifood.id}}?_method=PUT" method="POST" enctype="multipart/form-data">
-  {{else}}
-  <form action="/admin/agrifoods" method="POST" enctype="multipart/form-data">
+  <div class="btn-group container justify-content-center"
+    style="position: fixed;  top:6rem; width:100%; z-index: 10; padding-left:0">
+    <a type="button" href="/admin/dashboard" class="btn btn-secondary ">農產</a>
+    <a type="button" href="/admin/news" class="btn btn-secondary ">新聞</a>
+    <a type="button" href="/admin/profile" class="btn btn-secondary ">Profile</a>
+    {{#if user.role}}
+    <a type="button" href="/admin/members" class="btn btn-secondary ">members</a>
+    <a type="button" href="/admin/categories" class="btn btn-secondary ">Category</a>
     {{/if}}
 
+    <button class="btn btn-secondary dropdown-toggle dropdown" type="button" id="dropdownMenuButton"
+      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      新增
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <a class="dropdown-item" href="/admin/agrifoods/create">農產</a>
+      <a class="dropdown-item" href="/admin/news/create">新聞</a>
+      {{#if user.role}} <a class="dropdown-item" href="/admin/categories/create">Category</a>{{/if}}
+    </div>
+    <a type="button" href="/logout" class="btn btn-secondary ">LogOut</a>
+  </div>
 
-    <div class="card mb-3">
-      <div class="row no-gutters">
-        <div class="col-md-5">
-          <div class="custom-file">
-            <input type="file" class="custom-file-input" id="customFile" name="image" value="{{agrifood.image}}"
-              accept="image/*" onchange="preview_image(event)">
-            <label class="custom-file-label text-muted" for="customFile">產品圖片</label>
-            <img id="output_image" class="img-responsive center-block card-img-top">
+  <br class="featurette-divider">
+  <br class="featurette-divider">
+
+  <!--Card view-->
+  {{#if agrifood}}
+  <form action="/admin/agrifoods/{{agrifood.id}}?_method=PUT" method="POST" enctype="multipart/form-data">
+    {{else}}
+    <form action="/admin/agrifoods" method="POST" enctype="multipart/form-data">
+      {{/if}}
+
+
+      <div class="card mb-3">
+        <div class="row no-gutters">
+          <div class="col-md-5">
+            <div class="custom-file">
+              <input type="file" class="custom-file-input" id="customFile" name="image" value="{{agrifood.image}}"
+                accept="image/*" onchange="preview_image(event)">
+              <label class="custom-file-label text-muted" for="customFile">產品圖片</label>
+              <img id="output_image" class="img-responsive center-block card-img-top">
+            </div>
+
           </div>
 
-        </div>
 
+          <div class="col-md-7">
+            <div class="card-body">
 
-        <div class="col-md-7">
-          <div class="card-body">
-
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon1">產品名稱</span>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">產品名稱</span>
+                </div>
+                <input type="text" class="form-control" name="name" id="name" value="{{agrifood.name}}">
               </div>
-              <input type="text" class="form-control" name="name" id="name" value="{{agrifood.name}}">
-            </div>
 
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon1">產品描述</span>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">產品描述</span>
+                </div>
+                <textarea class="form-control" id="description" name="description"
+                  rows="3">{{agrifood.description}}</textarea>
               </div>
-              <textarea class="form-control" id="description" name="description"
-                rows="3">{{agrifood.description}}</textarea>
-            </div>
 
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <label class="input-group-text" for="CategoryId">農產類別</label>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <label class="input-group-text" for="CategoryId">農產類別</label>
+                </div>
+                <select class="form-control" id="CategoryId" name="CategoryId">
+                  {{#if agrifood.CategoryId}}
+                  <option value="{{agrifood.CategoryId}}" selected disabled>{{agrifood.Category.name}}</option>
+                  {{else}}
+                  <option hidden disabled selected value> -- select an option -- </option>
+                  {{#each categorys}}
+                  <option value="{{this.id}}">{{this.name}}</option>
+                  {{/each}}
+                  {{/if}}
+                </select>
               </div>
-              <select class="form-control" id="CategoryId" name="CategoryId">
-                {{#if agrifood.CategoryId}}
-                <option value="{{agrifood.CategoryId}}" selected disabled>{{agrifood.Category.name}}</option>
-                {{else}}
-                <option hidden disabled selected value> -- select an option -- </option>
-                {{#each categorys}}
-                <option value="{{this.id}}">{{this.name}}</option>
-                {{/each}}
-                {{/if}}
-              </select>
-            </div>
 
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon1">規格</span>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">規格</span>
+                </div>
+                <input type="text" class="form-control" name="norm" id="norm" placeholder="例如: 重量(公克或公斤) 包裝大小(公分)...等"
+                  value="{{agrifood.norm}}">
               </div>
-              <input type="text" class="form-control" name="norm" id="norm" placeholder="例如: 重量(公克或公斤) 包裝大小(公分)...等"
-                value="{{agrifood.norm}}">
-            </div>
 
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon1">運費</span>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">運費</span>
+                </div>
+                <input type="text" class="form-control" name="freight" id="freight" value="{{agrifood.freight}}">
               </div>
-              <input type="text" class="form-control" name="freight" id="freight" value="{{agrifood.freight}}">
-            </div>
 
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon1">售價</span>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">售價</span>
+                </div>
+                <input type="text" class="form-control" name="price" id="price" value="{{agrifood.price}}">
               </div>
-              <input type="text" class="form-control" name="price" id="price" value="{{agrifood.price}}">
-            </div>
 
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <button type="submit" class="btn btn-primary">送出</button>
-  </form>
-  <!--Card view end-->
+      <button type="submit" class="btn btn-primary">送出</button>
+    </form>
+</div>
+<!--Card view end-->
 
-  <!--image preview script-->
-  <script type='text/javascript'>
-    function preview_image(event) {
-      var reader = new FileReader();
-      reader.onload = function () {
-        var output = document.getElementById('output_image');
-        output.src = reader.result;
-      }
-      reader.readAsDataURL(event.target.files[0]);
+<!--image preview script-->
+<script type='text/javascript'>
+  function preview_image(event) {
+    var reader = new FileReader();
+    reader.onload = function () {
+      var output = document.getElementById('output_image');
+      output.src = reader.result;
     }
-  </script>
+    reader.readAsDataURL(event.target.files[0]);
+  }
+</script>
