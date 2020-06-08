@@ -23,6 +23,11 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
     integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
     crossorigin="anonymous"></script>
+  <script>
+    $(function () {
+      $('[data-toggle="popover"]').popover()
+    })
+  </script>
 </head>
 
 
@@ -31,53 +36,35 @@
 
 
   <main class="page-container bg-white">
-    <nav id="navbar-example2" class="navbar navbar-expand-lg navbar-white bg-white fixed-top ">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
       <a class="navbar-brand" href="/index"><img width="70" src="/upload/logo.png" alt="Cartzilla"></a>
-
       <button class="navbar-toggler justify-content-end" type="button" data-toggle="collapse"
         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-        aria-label="Toggle navigation" style="color: black; border:none; outline: 0;">
-        <span class="navbar-toggler-icon"><svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 20 19.1">
-            <path
-              d="M19 2H1a1 1 0 1 1 0-2h18a1 1 0 1 1 0 2zm0 17.1H1a1 1 0 0 1 0-2h18a1 1 0 0 1 0 2zm0-8.8H1a1 1 0 0 1 0-2h18a1 1 0 0 1 0 2z"
-              fill="#231f20"></path>
-          </svg></span>
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-        <ul class="collapse navbar-collapse navbar-nav justify-content-end" id="navbarSupportedContent">
+      <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+        <ul class="navbar-nav ">
           <li class="nav-item">
             <a class="nav-link" href="/agrifoods">@agrifoods</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/newses">@news</a>
           </li>
-          <li class="nav-item dropdown">
-            <form class="form-inline mt-2 mt-md-0">
-              <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+          <li class="nav-item">
+            <form action="/agrifoods/search" method="POST" class="mb-3 form-inline active-cyan-4">
+              <input id="search" name="search" class="form-control" type="text" placeholder="Search"
+                aria-label="Search">
             </form>
 
           </li>
         </ul>
-
+      </div>
     </nav>
 
-
     <div class="content-wrap bg-light">
-      <br class="featurette-divider">
-      <br class="featurette-divider">
 
-      {{!-- {{#if success_messages}}
-      <br class="featurette-divider">
-      <div class="alert alert-success" role="alert" style="margin: 30px 0 ;">
-        {{success_messages}}
-      </div>
-      {{/if}}
-      {{#if error_messages}}
-      <br class="featurette-divider">
-      <div class="alert alert-danger" role="alert" style="margin: 30px 0 ;">
-        {{error_messages}}
-      </div>
-      {{/if}} --}}
       {{{body}}}
 
     </div>
