@@ -25,6 +25,7 @@ module.exports = (app, passport) => {
   app.get('/', (req, res) => res.redirect('/index'))
   app.get('/index', frontController.getIndex)
   app.get('/agrifoods', frontController.getAgrifoods)
+  app.post('/agrifoods/search', frontController.searchAgrifoods)
   app.get('/agrifoods/:id', frontController.getAgrifood)
   app.get('/newses', frontController.getNewses)
   app.get('/newses/:id', frontController.getNews)

@@ -1,5 +1,5 @@
 <div class="container">
-
+  {{#if categorys}}
   <div class="btn-group container justify-content-center"
     style="position: fixed;  top: 6rem; width:100%; z-index: 10; ">
     <a type="button" class="btn btn-secondary {{#ifCond '' categoryId}}active{{/ifCond}} " href="?categoryId=">全部</a>
@@ -8,6 +8,13 @@
       href="?categoryId={{this.id}}">{{this.name}}</a>
     {{/each}}
   </div>
+  {{else}}
+  <br class="featurette-divider">
+  <br class="featurette-divider">
+  <br class="featurette-divider">
+  <br class="featurette-divider">
+  <br class="featurette-divider">
+  {{/if}}
 
   <br class="featurette-divider">
   <div class="card-deck row justify-content-center">

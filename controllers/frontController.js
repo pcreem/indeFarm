@@ -3,7 +3,7 @@ const Agrifood = db.Agrifood
 const User = db.User
 const Category = db.Category
 const News = db.News
-
+const Sequelize = require('sequelize');
 require('dotenv').config()
 const imgur = require('imgur-node-api')
 const IMGUR_CLIENT_ID = process.env.IMGUR_CLIENT_ID
@@ -20,6 +20,28 @@ const frontController = {
       })
     })
   },
+  searchAgrifoods: (req, res) => {
+    let search = req.body.search
+    let Op = Sequelize.Op
+
+    try {
+      return Agrifood.findAll({
+        where: {
+          name: {
+            [Op.substring]: search
+          }
+        }, include: Category, raw: true
+      }).then(agrifoods => {
+        return res.render('agrifoods', {
+          agrifoods: agrifoods
+        })
+
+      })
+    } catch (err) {
+      console.log(err)
+    }
+  },
+
   getAgrifoods: (req, res) => {
     let whereQuery = {}
     let categoryId = ''
