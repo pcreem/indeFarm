@@ -20,9 +20,9 @@ app.engine('.hbs', handlebars({
   defaultLayout: 'main',
   helpers: require('./config/helpers')
 }));
-
-app.use(express.static(__dirname + '/public'));
 app.use('/upload', express.static(__dirname + '/upload'))
+app.use(express.static(__dirname + '/public'));
+
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(session({ secret: 'secret', resave: false, saveUninitialized: false }))
 app.use(passport.initialize())
