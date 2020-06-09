@@ -65,7 +65,7 @@ const frontController = {
     }
   },
   getAgrifood: (req, res) => {
-    return Agrifood.findByPk(req.params.id, { raw: true }).then(agrifood => {
+    return Agrifood.findByPk(req.params.id, { include: User, raw: true, nest: true }).then(agrifood => {
       return res.render('agrifood', {
         agrifood: agrifood
       })

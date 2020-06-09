@@ -9,14 +9,14 @@ module.exports = (app, passport) => {
       if (req.user.approved) { return next() }
       return res.redirect('/')
     }
-    res.redirect('/signin')
+    res.redirect('/')
   }
   const authenticatedAdmin = (req, res, next) => {
     if (req.isAuthenticated()) {
       if (req.user.role) { return next() }
       return res.redirect('/')
     }
-    res.redirect('/signin')
+    res.redirect('/')
   }
 
   const multer = require('multer')

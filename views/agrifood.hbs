@@ -3,6 +3,8 @@
   <br class="featurette-divider">
   <br class="featurette-divider">
   <br class="featurette-divider">
+  <br class="featurette-divider">
+  <br class="featurette-divider">
 
   <div class="card mb-3">
     <div class="row no-gutters">
@@ -39,6 +41,8 @@
             </div>
             <p class="form-control">{{agrifood.price}}</p>
           </div>
+
+
         </div>
       </div>
     </div>
@@ -50,6 +54,37 @@
     <div class="card-body">
 
       <p class="card-text">{{agrifood.description}}</p>
+
+    </div>
+  </div>
+
+  <br>
+  <div class="card">
+    <div class="card-header">
+      廠商聯絡資訊
+    </div>
+    <div class="card-body">
+
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">機構名稱</span>
+        </div>
+        <p class="form-control">{{agrifood.User.name}}</p>
+      </div>
+
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">Email</span>
+        </div>
+        <p class="form-control">{{agrifood.User.email}}</p>
+      </div>
+
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">ATM轉帳帳號</span>
+        </div>
+        <p class="form-control">{{agrifood.User.ATM}}</p>
+      </div>
 
     </div>
   </div>

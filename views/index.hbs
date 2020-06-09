@@ -1,6 +1,6 @@
 <div class="container">
   <!--Products-->
-  <h2 class="mb-10 text-center">Best Sellers</h2>
+  <h2 class="mb-10 text-center">農產</h2>
   <br class="featurette-divider">
   <div class="card-deck row">
     {{#each agrifoods}}
@@ -20,13 +20,13 @@
 
 
   <hr class="featurette-divider">
-  <h2 class="mb-10 text-center" id="news">News</h2>
+  <h2 class="mb-10 text-center" id="news">部落新聞</h2>
   <br class="featurette-divider">
   <div class="card-deck row">
     {{#each news}}
     <div class="col-12 col-sm-4 mb-4">
       <div class="card">
-        <a href="/news/{{this.id}}"><img src="{{this.image}}" class="card-img-top" alt="..."></a>
+        <a href="/newses/{{this.id}}"><img src="{{this.image}}" class="card-img-top" alt="..."></a>
         <div class="card-body">
           <h5 class="card-title">{{this.name}}</h5>
         </div>

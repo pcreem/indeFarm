@@ -78,6 +78,36 @@
     </div>
   </div>
   <br>
+  <div class="card">
+    <div class="card-header">
+      廠商聯絡資訊
+    </div>
+    <div class="card-body">
+
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">機構名稱</span>
+        </div>
+        <p class="form-control">{{agrifood.User.name}}</p>
+      </div>
+
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">Email</span>
+        </div>
+        <p class="form-control">{{agrifood.User.email}}</p>
+      </div>
+
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">ATM轉帳帳號</span>
+        </div>
+        <p class="form-control">{{agrifood.User.ATM}}</p>
+      </div>
+
+    </div>
+  </div>
+  <br>
 
   <a class="btn btn-outline-primary" class="card-link" href="/admin/agrifoods/{{agrifood.id}}/edit" role="button">編輯</a>
   <a class="btn btn-outline-primary" href="javascript:history.back()" role="button">回上一頁</a>

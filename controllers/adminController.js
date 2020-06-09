@@ -261,7 +261,7 @@ const adminController = {
     }
   },
   getAgrifood: (req, res) => {
-    return Agrifood.findByPk(req.params.id, { raw: true }).then(agrifood => {
+    return Agrifood.findByPk(req.params.id, { include: User, raw: true, nest: true }).then(agrifood => {
       if (agrifood.UserId !== req.user.id && !req.user.role) {
         req.flash('error_messages', '404 Page not found')
         return res.redirect('/index')
