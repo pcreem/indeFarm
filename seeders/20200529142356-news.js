@@ -1,5 +1,6 @@
 'use strict';
 const faker = require('faker')
+faker.locale = "zh_TW";
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
@@ -8,7 +9,7 @@ module.exports = {
         ({
           name: faker.commerce.productName(),
           image: 'https://loremflickr.com/320/240/indigenous/all',
-          description: faker.commerce.productAdjective(),
+          description: faker.lorem.paragraphs(),
           UserId: Math.floor(Math.random() * 3) + 1,
           createdAt: faker.date.past(),
           updatedAt: faker.date.recent(),
@@ -17,6 +18,6 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('News', null, {});
+    return queryInterface.bulkDelete('News', null, { truncate: true, restartIdentity: true });
   }
 };

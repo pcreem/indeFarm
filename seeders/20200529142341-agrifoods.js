@@ -1,6 +1,7 @@
 'use strict';
 const faker = require('faker')
-const categoryId = [1, 3, 4, 6]
+faker.locale = "zh_TW";
+const categoryId = [1, 2, 3, 4]
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
@@ -13,9 +14,9 @@ module.exports = {
           price: parseInt(faker.commerce.price()),
           freight: parseInt(faker.commerce.price()),
           norm: faker.commerce.productMaterial(),
-          description: faker.commerce.productAdjective(),
+          description: faker.lorem.paragraphs(),
           CategoryId: categoryId[Math.floor(Math.random() * categoryId.length)],
-          UserId: Math.floor(Math.random() * 3) + 1,
+          UserId: Math.floor(Math.random() * 2) + 2,
           createdAt: faker.date.past(),
           updatedAt: faker.date.recent(),
         })
@@ -24,6 +25,6 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('Agrifoods', null, {});
+    return queryInterface.bulkDelete('Agrifoods', null, { truncate: true, restartIdentity: true });
   }
 };
