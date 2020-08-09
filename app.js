@@ -4,7 +4,7 @@ const db = require('./models')
 const bodyParser = require('body-parser')
 const flash = require('connect-flash')
 const session = require('express-session')
-
+const cors = require('cors')
 const methodOverride = require('method-override')
 
 const app = express()
@@ -14,6 +14,7 @@ if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
 const passport = require('./config/passport')
+app.use(cors())
 
 app.set('view engine', 'hbs')
 app.engine('.hbs', handlebars({
@@ -25,6 +26,7 @@ app.use('/upload', express.static(__dirname + '/upload'))
 app.use(express.static(__dirname + '/public'));
 
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
 app.use(session({ secret: 'secret', resave: false, saveUninitialized: false }))
 app.use(passport.initialize())
 app.use(passport.session())
