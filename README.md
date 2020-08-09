@@ -83,6 +83,7 @@ $ code .env
 
 ```
 IMGUR_CLIENT_ID=<YOUR_imgur_ID>
+JWT_SECRET=<YOUR_JWT_SECRET>
 ```
 
 **5. Edit password in config.json file**
@@ -128,4 +129,4 @@ Admin
 
 ## Authors
 
- - [Lin](https://github.com/pcreem)
+ - [Song](https://github.com/pcreem)
