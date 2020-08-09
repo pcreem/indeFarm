@@ -74,5 +74,7 @@ router.get('/admin/categories/:id', authenticatedAdmin, adminController.getCateg
 router.put('/admin/categories/:id', authenticatedAdmin, adminController.putCategory)
 router.delete('/admin/categories/:id', authenticatedAdmin, adminController.deleteCategory)
 
+router.get('/*', (req, res) => res.redirect('/index'))
+
 module.exports = router
 
